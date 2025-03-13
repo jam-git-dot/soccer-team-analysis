@@ -32,6 +32,11 @@ const PlayStyleDashboard: React.FC<PlayStyleDashboardProps> = ({ teamId }) => {
   const radarMetricIds = radarMetrics.map(metric => metric.id);
   const radarData = getMetricsSubset(radarMetricIds);
 
+  // Add console logs here
+  console.log("TeamInfo:", teamInfo);
+  console.log("MetricsData:", metricsData);
+  console.log("RadarData:", radarData);
+  
   // Handle loading and error states
   if (isLoading) {
     return (

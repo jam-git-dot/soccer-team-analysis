@@ -265,8 +265,8 @@ const AttackingMetrics: React.FC<AttackingMetricsProps> = ({
                 value={`${((metrics.attacking.goalsPerMatch / metrics.attacking.shotsPerMatch) * 100).toFixed(1)}%`}
                 description="Percentage of shots that result in goals"
                 isHigherBetter={true}
-                leagueAvg={comparativeMetrics?.metrics?.['attacking.goalsPerMatch']?.leagueAverage / 
-                           comparativeMetrics?.metrics?.['attacking.shotsPerMatch']?.leagueAverage * 100}
+                leagueAvg={(comparativeMetrics?.metrics?.['attacking.goalsPerMatch']?.leagueAverage ?? 0)/ 
+                           (comparativeMetrics?.metrics?.['attacking.shotsPerMatch']?.leagueAverage ?? 0) * 100}
               />
               
               <MetricItem 
@@ -274,8 +274,8 @@ const AttackingMetrics: React.FC<AttackingMetricsProps> = ({
                 value={`${((metrics.attacking.xGPerMatch / metrics.attacking.shotsPerMatch) * 100).toFixed(1)}%`}
                 description="Average xG per shot (higher = better chances)"
                 isHigherBetter={true}
-                leagueAvg={comparativeMetrics?.metrics?.['attacking.xGPerMatch']?.leagueAverage / 
-                           comparativeMetrics?.metrics?.['attacking.shotsPerMatch']?.leagueAverage * 100}
+                leagueAvg={(comparativeMetrics?.metrics?.['attacking.xGPerMatch']?.leagueAverage ?? 0 )/ 
+                           (comparativeMetrics?.metrics?.['attacking.shotsPerMatch']?.leagueAverage ?? 0) * 100}
               />
             </div>
           ) : (
@@ -503,7 +503,7 @@ function getFinishingQuality(goals: number, xG: number): string {
   } else if (ratio >= 0.95) {
     return 'finishing that aligns with the quality of chances created';
   } else if (ratio >= 0.8) {
-    return 'slightly inefficient finishing that doesn't fully capitalize on chances';
+    return 'slightly inefficient finishing that doesnt fully capitalize on chances';
   } else {
     return 'significant room for improvement in finishing quality';
   }

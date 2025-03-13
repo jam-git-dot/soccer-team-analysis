@@ -98,6 +98,10 @@ export default function useTeamMetrics({
     }));
   };
 
+    // Add console log here
+    console.log("TeamData for", teamId, ":", teamData);
+    console.log("Current metrics data:", metricsData);
+
   return {
     teamInfo,
     metricsData,
