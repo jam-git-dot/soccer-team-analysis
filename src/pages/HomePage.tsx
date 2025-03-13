@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAllTeams } from '../services/mock-data';
+import { SUPPORTED_LEAGUES } from '../config/constants';
 
 /**
  * Home page component
@@ -10,49 +12,20 @@ const HomePage = () => {
   const [selectedLeague, setSelectedLeague] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
 
-  // Mock data for leagues - will be replaced with API data
-  const leagues = [
-    { id: 'champions-league', name: 'UEFA Champions League' },
-    { id: 'premier-league', name: 'Premier League' },
-    { id: 'la-liga', name: 'La Liga' },
-    { id: 'bundesliga', name: 'Bundesliga' },
-    { id: 'serie-a', name: 'Serie A' },
-    { id: 'ligue-1', name: 'Ligue 1' },
-  ];
+  // Get leagues from constants
+  const leagues = SUPPORTED_LEAGUES;
 
-  // Mock data for teams - will be replaced with API data
-  // This would normally be fetched based on the selected league
+  // Get Premier League teams from mock data
+  const allTeams = getAllTeams();
+
+  // For version 0.5, we're focusing only on Premier League
   const teamsByLeague = {
-    'champions-league': [
-      { id: 'team-1', name: 'Real Madrid' },
-      { id: 'team-2', name: 'Bayern Munich' },
-      { id: 'team-3', name: 'Manchester City' },
-    ],
-    'premier-league': [
-      { id: 'team-4', name: 'Manchester City' },
-      { id: 'team-5', name: 'Liverpool' },
-      { id: 'team-6', name: 'Arsenal' },
-    ],
-    'la-liga': [
-      { id: 'team-7', name: 'Barcelona' },
-      { id: 'team-8', name: 'Real Madrid' },
-      { id: 'team-9', name: 'Atletico Madrid' },
-    ],
-    'bundesliga': [
-      { id: 'team-10', name: 'Bayern Munich' },
-      { id: 'team-11', name: 'Borussia Dortmund' },
-      { id: 'team-12', name: 'RB Leipzig' },
-    ],
-    'serie-a': [
-      { id: 'team-13', name: 'Inter Milan' },
-      { id: 'team-14', name: 'AC Milan' },
-      { id: 'team-15', name: 'Juventus' },
-    ],
-    'ligue-1': [
-      { id: 'team-16', name: 'PSG' },
-      { id: 'team-17', name: 'Marseille' },
-      { id: 'team-18', name: 'Monaco' },
-    ],
+    'premier-league': allTeams,
+    'champions-league': [],
+    'la-liga': [],
+    'bundesliga': [],
+    'serie-a': [],
+    'ligue-1': [],
   };
 
   // Get available teams based on selected league
@@ -100,11 +73,20 @@ const HomePage = () => {
             >
               <option value="">Select a league</option>
               {leagues.map((league) => (
-                <option key={league.id} value={league.id}>
-                  {league.name}
+                <option 
+                  key={league.id} 
+                  value={league.id}
+                  disabled={league.id !== 'premier-league'} // Only enable Premier League for v0.5
+                >
+                  {league.name} {league.id !== 'premier-league' ? '(Coming Soon)' : ''}
                 </option>
               ))}
             </select>
+            {!selectedLeague && (
+              <p className="text-xs text-gray-500 mt-1">
+                Note: For version 0.5, only Premier League teams are available
+              </p>
+            )}
           </div>
 
           {/* Team Selection */}

@@ -1,5 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
+import { getAllTeams } from '../services/mock-data';
+import { SUPPORTED_LEAGUES } from '../config/constants';
 
 /**
  * Team Selection Page component
@@ -9,34 +11,26 @@ const TeamSelectionPage = () => {
   const { leagueId } = useParams<{ leagueId: string }>();
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Mock data for teams - will be replaced with API data
-  const teams = [
-    { id: 'team-1', name: 'Manchester City', logo: 'https://placehold.co/80x80?text=MC' },
-    { id: 'team-2', name: 'Liverpool', logo: 'https://placehold.co/80x80?text=LFC' },
-    { id: 'team-3', name: 'Chelsea', logo: 'https://placehold.co/80x80?text=CFC' },
-    { id: 'team-4', name: 'Arsenal', logo: 'https://placehold.co/80x80?text=AFC' },
-    { id: 'team-5', name: 'Tottenham Hotspur', logo: 'https://placehold.co/80x80?text=THFC' },
-    { id: 'team-6', name: 'Manchester United', logo: 'https://placehold.co/80x80?text=MUFC' },
-    { id: 'team-7', name: 'Leicester City', logo: 'https://placehold.co/80x80?text=LCFC' },
-    { id: 'team-8', name: 'West Ham United', logo: 'https://placehold.co/80x80?text=WHU' },
-  ];
+  // Get all teams from the mock data service
+  const allTeams = getAllTeams();
+
+  // For version 0.5, we're focusing only on Premier League
+  // In a future version, we would filter teams by league from an API
+  const teams = allTeams.map(team => ({
+    id: team.id,
+    name: team.name,
+    logo: team.logoUrl
+  }));
 
   // Filter teams based on search term
   const filteredTeams = teams.filter((team) =>
     team.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Get league name based on ID - will be replaced with API data
+  // Get league name based on ID from constants
   const getLeagueName = (id: string) => {
-    const leagueMap: Record<string, string> = {
-      'champions-league': 'UEFA Champions League',
-      'premier-league': 'Premier League',
-      'la-liga': 'La Liga',
-      'bundesliga': 'Bundesliga',
-      'serie-a': 'Serie A',
-      'ligue-1': 'Ligue 1',
-    };
-    return leagueMap[id] || id;
+    const league = SUPPORTED_LEAGUES.find(league => league.id === id);
+    return league ? league.name : id;
   };
 
   return (
