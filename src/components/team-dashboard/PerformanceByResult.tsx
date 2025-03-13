@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { ChartContainer, BarChart } from '@/components/charts';
 import { useMetricsByResultBarData } from '@/hooks';
 import type { TeamMetrics } from '@/types';
+import { useEffect } from 'react';
 
 interface PerformanceByResultProps {
   /**
@@ -53,6 +54,11 @@ const PerformanceByResult: React.FC<PerformanceByResultProps> = ({
   
   // Convert metrics data for the bar chart
   const chartData = useMetricsByResultBarData(metricsByResult, metricKey);
+  
+  // Debug chartData whenever it changes (commented out for now)
+  // useEffect(() => {
+  // console.log('chartData:', chartData);
+  // }, [chartData]);
   
   // Define available metrics per category
   const metricOptions = {

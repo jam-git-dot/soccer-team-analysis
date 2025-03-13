@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -10,9 +11,11 @@ const LoadingFallback = () => (
 
 function App() {
   return (
-    <Suspense fallback={<LoadingFallback />}>
-      <Outlet />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <Outlet />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

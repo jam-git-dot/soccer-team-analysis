@@ -11,7 +11,6 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend, 
   ResponsiveContainer,
   ReferenceLine,
   TooltipProps
@@ -28,8 +27,8 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
   
   if (!metric) return null;
   
-  const value = data.value as number;
-  const percentile = (data.payload as any).percentile;
+  const value = data.payload.originalValue as number;
+  const percentile = data.payload.percentile;
   
   return (
     <div className="custom-tooltip bg-white p-3 border border-gray-200 shadow-md rounded-md">
@@ -66,12 +65,16 @@ const MetricsBarChart: React.FC<MetricsBarChartProps> = ({
   height = 300,
   className = '',
 }) => {
-  // Transform data for Recharts
+  // Transform data for Recharts, using percentiles as the bar heights
   const chartData = data.map(item => {
     const metric = METRICS[item.metricId];
+    
+    // Store the original value for tooltip display
+    // Use percentile for the actual bar height, or 0 if not available
     return {
       name: metric ? metric.name : item.metricId,
-      [item.metricId]: item.value,
+      [item.metricId]: item.percentile !== undefined ? item.percentile : 0,
+      originalValue: item.value,
       percentile: item.percentile,
     };
   });
@@ -87,28 +90,30 @@ const MetricsBarChart: React.FC<MetricsBarChartProps> = ({
     return '#ef4444'; // Red
   };
 
+  // Format axes for percentile display
+  const formatYAxis = (value: number) => `${value}%`;
+
   return (
     <div className={`w-full ${className}`} style={{ height: `${height}px` }}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={chartData}
           layout={layout}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           {layout === 'horizontal' ? (
             <>
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, 100]} tickFormatter={formatYAxis} label={{ value: 'Percentile', angle: -90, position: 'insideLeft', offset: -5 }} />
             </>
           ) : (
             <>
-              <XAxis type="number" />
-              <YAxis type="category" dataKey="name" />
+              <XAxis type="number" domain={[0, 100]} tickFormatter={formatYAxis} label={{ value: 'Percentile', position: 'insideBottom', offset: -5 }} />
+              <YAxis type="category" dataKey="name" width={150} />
             </>
           )}
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
           {data.map(item => (
             <Bar
               key={item.metricId}
@@ -117,9 +122,7 @@ const MetricsBarChart: React.FC<MetricsBarChartProps> = ({
               name={METRICS[item.metricId]?.name || item.metricId}
             />
           ))}
-          {showPercentiles && (
-            <ReferenceLine y={50} stroke="#666" strokeDasharray="3 3" />
-          )}
+          <ReferenceLine y={50} stroke="#666" strokeDasharray="3 3" label={{ value: 'League Average', position: 'right', fill: '#666' }} />
         </BarChart>
       </ResponsiveContainer>
     </div>

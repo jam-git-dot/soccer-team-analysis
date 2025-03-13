@@ -50,9 +50,15 @@ export default function useTeamMetrics({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
+  // Ensure teamId is a string
+  const safeTeamId = typeof teamId === 'string' ? teamId : '';
+
   // Fetch team data and info
-  const teamData = useMemo(() => getTeamData(teamId), [teamId]);
-  const teamInfo = useMemo(() => getTeamInfo(teamId), [teamId]);
+  const teamData = useMemo(() => getTeamData(safeTeamId), [safeTeamId]);
+  const teamInfo = useMemo(() => getTeamInfo(safeTeamId), [safeTeamId]);
+  
+  // Debug log to help trace issues
+  console.log("useTeamMetrics - teamId:", safeTeamId, "teamData:", teamData, "teamInfo:", teamInfo);
   
   // Get current metrics data based on selected result
   const metricsData = useMemo(() => {
@@ -97,10 +103,6 @@ export default function useTeamMetrics({
       percentile: metricsData.metrics[metricId]?.percentile
     }));
   };
-
-    // Add console log here
-    console.log("TeamData for", teamId, ":", teamData);
-    console.log("Current metrics data:", metricsData);
 
   return {
     teamInfo,

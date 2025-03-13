@@ -13,22 +13,25 @@ const TeamDashboard = () => {
   const { teamId, compareTeamId } = useParams<{ teamId: string; compareTeamId?: string }>();
   const [activeTab, setActiveTab] = useState('team');
 
+  // Ensure teamId is a string
+  const safeTeamId = typeof teamId === 'string' ? teamId : '';
+
   // Get team info from mock data service
-  const mockTeamInfo = getTeamInfo(teamId || '');
+  const mockTeamInfo = getTeamInfo(safeTeamId);
 
   // Fallback to mock data if team info not found
   const teamInfo = mockTeamInfo || {
-    id: teamId,
-    name: teamId === 'team-1' ? 'Manchester City' : 'Liverpool',
-    shortName: teamId === 'team-1' ? 'MCI' : 'LIV',
-    logoUrl: `https://placehold.co/100x100?text=${teamId === 'team-1' ? 'MC' : 'LFC'}`,
+    id: safeTeamId,
+    name: safeTeamId === 'man-city' ? 'Manchester City' : 'Liverpool',
+    shortName: safeTeamId === 'man-city' ? 'MCI' : 'LIV',
+    logoUrl: `https://placehold.co/100x100?text=${safeTeamId === 'man-city' ? 'MC' : 'LFC'}`,
     league: 'Premier League',
     leagueId: 'premier-league',
   };
 
   // Get all teams for the selector
   const allTeams = getAllTeams();
-  const comparisonTeams = allTeams.filter(team => team.id !== teamId).slice(0, 8);
+  const comparisonTeams = allTeams.filter(team => team.id !== safeTeamId).slice(0, 8);
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -99,11 +102,11 @@ const TeamDashboard = () => {
       {/* Tab content */}
       <div className="min-h-[50vh]">
         {activeTab === 'team' && (
-          <PlayStyleDashboard teamId={teamId || ''} />
+          <PlayStyleDashboard teamId={safeTeamId} />
         )}
         
         {activeTab === 'league' && (
-          <LeagueDashboard teamId={teamId || ''} />
+          <LeagueDashboard teamId={safeTeamId} />
         )}
         
         {activeTab === 'compare' && (
@@ -120,7 +123,7 @@ const TeamDashboard = () => {
                 {comparisonTeams.map((team) => (
                   <Link
                     key={team.id}
-                    to={`/team/${teamId}/compare/${team.id}`}
+                    to={`/team/${safeTeamId}/compare/${team.id}`}
                     className={`flex flex-col items-center rounded p-2 transition-colors ${
                       compareTeamId === team.id
                         ? 'bg-primary-100 text-primary-800'
@@ -141,7 +144,15 @@ const TeamDashboard = () => {
             </div>
             
             {compareTeamId ? (
-              <TeamComparison teamId={teamId || ''} compareTeamId={compareTeamId} />
+              typeof compareTeamId === 'string' ? (
+                <TeamComparison teamId={safeTeamId} compareTeamId={compareTeamId} />
+              ) : (
+                <div className="rounded-lg bg-gray-50 p-8 text-center">
+                  <p className="text-lg text-gray-600">
+                    Invalid comparison team.
+                  </p>
+                </div>
+              )
             ) : (
               <div className="rounded-lg bg-gray-50 p-8 text-center">
                 <p className="text-lg text-gray-600">
@@ -155,3 +166,5 @@ const TeamDashboard = () => {
     </div>
   );
 };
+
+export default TeamDashboard;
