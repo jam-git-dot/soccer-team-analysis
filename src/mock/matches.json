@@ -1,0 +1,694 @@
+[
+    {
+      "id": "match-1",
+      "leagueId": "premier-league",
+      "seasonId": "premier-league-2023-2024",
+      "homeTeamId": "team-1",
+      "awayTeamId": "team-2",
+      "date": "2023-11-12T16:30:00Z",
+      "status": "FINISHED",
+      "matchday": 12,
+      "stage": "REGULAR_SEASON",
+      "venue": "Etihad Stadium",
+      "referee": "Michael Oliver",
+      "homeTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "awayTeam": {
+        "id": "team-2",
+        "name": "Liverpool",
+        "shortName": "Liverpool",
+        "logo": "https://placehold.co/100x100?text=LFC"
+      },
+      "score": {
+        "homeTeamScore": 2,
+        "awayTeamScore": 1,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 0,
+        "fullTimeHome": 2,
+        "fullTimeAway": 1
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 64,
+          "shots": 18,
+          "shotsOnTarget": 7,
+          "passes": 612,
+          "passAccuracy": 91,
+          "fouls": 9,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 8,
+          "tackles": 16,
+          "clearances": 12,
+          "shotsBlocked": 4,
+          "expectedGoals": 2.42
+        },
+        "awayTeam": {
+          "possession": 36,
+          "shots": 12,
+          "shotsOnTarget": 4,
+          "passes": 354,
+          "passAccuracy": 82,
+          "fouls": 12,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 1,
+          "corners": 4,
+          "tackles": 22,
+          "clearances": 18,
+          "shotsBlocked": 6,
+          "expectedGoals": 1.38
+        }
+      }
+    },
+    {
+      "id": "match-2",
+      "leagueId": "premier-league",
+      "seasonId": "premier-league-2023-2024",
+      "homeTeamId": "team-3",
+      "awayTeamId": "team-1",
+      "date": "2023-11-19T14:00:00Z",
+      "status": "FINISHED",
+      "matchday": 13,
+      "stage": "REGULAR_SEASON",
+      "venue": "Stamford Bridge",
+      "referee": "Anthony Taylor",
+      "homeTeam": {
+        "id": "team-3",
+        "name": "Chelsea",
+        "shortName": "Chelsea",
+        "logo": "https://placehold.co/100x100?text=CFC"
+      },
+      "awayTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "score": {
+        "homeTeamScore": 0,
+        "awayTeamScore": 3,
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 0,
+        "halfTimeAway": 1,
+        "fullTimeHome": 0,
+        "fullTimeAway": 3
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 42,
+          "shots": 9,
+          "shotsOnTarget": 3,
+          "passes": 398,
+          "passAccuracy": 83,
+          "fouls": 11,
+          "yellowCards": 3,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 3,
+          "tackles": 19,
+          "clearances": 24,
+          "shotsBlocked": 7,
+          "expectedGoals": 0.86
+        },
+        "awayTeam": {
+          "possession": 58,
+          "shots": 17,
+          "shotsOnTarget": 9,
+          "passes": 572,
+          "passAccuracy": 90,
+          "fouls": 8,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 1,
+          "corners": 7,
+          "tackles": 13,
+          "clearances": 10,
+          "shotsBlocked": 2,
+          "expectedGoals": 2.78
+        }
+      }
+    },
+    {
+      "id": "match-3",
+      "leagueId": "premier-league",
+      "seasonId": "premier-league-2023-2024",
+      "homeTeamId": "team-1",
+      "awayTeamId": "team-4",
+      "date": "2023-11-26T16:30:00Z",
+      "status": "FINISHED",
+      "matchday": 14,
+      "stage": "REGULAR_SEASON",
+      "venue": "Etihad Stadium",
+      "referee": "Craig Pawson",
+      "homeTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "awayTeam": {
+        "id": "team-4",
+        "name": "Arsenal",
+        "shortName": "Arsenal",
+        "logo": "https://placehold.co/100x100?text=AFC"
+      },
+      "score": {
+        "homeTeamScore": 2,
+        "awayTeamScore": 2,
+        "winner": "DRAW",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 1,
+        "fullTimeHome": 2,
+        "fullTimeAway": 2
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 59,
+          "shots": 16,
+          "shotsOnTarget": 6,
+          "passes": 542,
+          "passAccuracy": 89,
+          "fouls": 10,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 7,
+          "tackles": 15,
+          "clearances": 14,
+          "shotsBlocked": 5,
+          "expectedGoals": 2.15
+        },
+        "awayTeam": {
+          "possession": 41,
+          "shots": 13,
+          "shotsOnTarget": 5,
+          "passes": 387,
+          "passAccuracy": 84,
+          "fouls": 13,
+          "yellowCards": 3,
+          "redCards": 0,
+          "offsides": 0,
+          "corners": 5,
+          "tackles": 20,
+          "clearances": 19,
+          "shotsBlocked": 4,
+          "expectedGoals": 2.08
+        }
+      }
+    },
+    {
+      "id": "match-4",
+      "leagueId": "premier-league",
+      "seasonId": "premier-league-2023-2024",
+      "homeTeamId": "team-5",
+      "awayTeamId": "team-1",
+      "date": "2023-12-03T14:00:00Z",
+      "status": "FINISHED",
+      "matchday": 15,
+      "stage": "REGULAR_SEASON",
+      "venue": "Tottenham Hotspur Stadium",
+      "referee": "Simon Hooper",
+      "homeTeam": {
+        "id": "team-5",
+        "name": "Tottenham Hotspur",
+        "shortName": "Spurs",
+        "logo": "https://placehold.co/100x100?text=THFC"
+      },
+      "awayTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "score": {
+        "homeTeamScore": 1,
+        "awayTeamScore": 3,
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 1,
+        "fullTimeHome": 1,
+        "fullTimeAway": 3
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 38,
+          "shots": 10,
+          "shotsOnTarget": 4,
+          "passes": 364,
+          "passAccuracy": 81,
+          "fouls": 12,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 4,
+          "tackles": 21,
+          "clearances": 25,
+          "shotsBlocked": 6,
+          "expectedGoals": 1.24
+        },
+        "awayTeam": {
+          "possession": 62,
+          "shots": 19,
+          "shotsOnTarget": 8,
+          "passes": 598,
+          "passAccuracy": 90,
+          "fouls": 9,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 9,
+          "tackles": 14,
+          "clearances": 11,
+          "shotsBlocked": 3,
+          "expectedGoals": 2.86
+        }
+      }
+    },
+    {
+      "id": "match-5",
+      "leagueId": "premier-league",
+      "seasonId": "premier-league-2023-2024",
+      "homeTeamId": "team-1",
+      "awayTeamId": "team-6",
+      "date": "2023-12-10T16:30:00Z",
+      "status": "FINISHED",
+      "matchday": 16,
+      "stage": "REGULAR_SEASON",
+      "venue": "Etihad Stadium",
+      "referee": "Paul Tierney",
+      "homeTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "awayTeam": {
+        "id": "team-6",
+        "name": "Manchester United",
+        "shortName": "Man Utd",
+        "logo": "https://placehold.co/100x100?text=MUFC"
+      },
+      "score": {
+        "homeTeamScore": 3,
+        "awayTeamScore": 0,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 2,
+        "halfTimeAway": 0,
+        "fullTimeHome": 3,
+        "fullTimeAway": 0
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 71,
+          "shots": 21,
+          "shotsOnTarget": 9,
+          "passes": 678,
+          "passAccuracy": 93,
+          "fouls": 7,
+          "yellowCards": 0,
+          "redCards": 0,
+          "offsides": 1,
+          "corners": 10,
+          "tackles": 13,
+          "clearances": 9,
+          "shotsBlocked": 2,
+          "expectedGoals": 3.24
+        },
+        "awayTeam": {
+          "possession": 29,
+          "shots": 6,
+          "shotsOnTarget": 1,
+          "passes": 278,
+          "passAccuracy": 76,
+          "fouls": 14,
+          "yellowCards": 4,
+          "redCards": 0,
+          "offsides": 4,
+          "corners": 2,
+          "tackles": 24,
+          "clearances": 28,
+          "shotsBlocked": 8,
+          "expectedGoals": 0.58
+        }
+      }
+    },
+    {
+      "id": "match-6",
+      "leagueId": "la-liga",
+      "seasonId": "la-liga-2023-2024",
+      "homeTeamId": "team-7",
+      "awayTeamId": "team-8",
+      "date": "2023-10-28T19:00:00Z",
+      "status": "FINISHED",
+      "matchday": 11,
+      "stage": "REGULAR_SEASON",
+      "venue": "Camp Nou",
+      "referee": "Mateu Lahoz",
+      "homeTeam": {
+        "id": "team-7",
+        "name": "Barcelona",
+        "shortName": "Barça",
+        "logo": "https://placehold.co/100x100?text=FCB"
+      },
+      "awayTeam": {
+        "id": "team-8",
+        "name": "Real Madrid",
+        "shortName": "Madrid",
+        "logo": "https://placehold.co/100x100?text=RM"
+      },
+      "score": {
+        "homeTeamScore": 2,
+        "awayTeamScore": 1,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 0,
+        "fullTimeHome": 2,
+        "fullTimeAway": 1
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 68,
+          "shots": 17,
+          "shotsOnTarget": 7,
+          "passes": 642,
+          "passAccuracy": 92,
+          "fouls": 8,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 9,
+          "tackles": 14,
+          "clearances": 10,
+          "shotsBlocked": 3,
+          "expectedGoals": 2.35
+        },
+        "awayTeam": {
+          "possession": 32,
+          "shots": 11,
+          "shotsOnTarget": 3,
+          "passes": 302,
+          "passAccuracy": 84,
+          "fouls": 13,
+          "yellowCards": 3,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 3,
+          "tackles": 19,
+          "clearances": 22,
+          "shotsBlocked": 5,
+          "expectedGoals": 1.28
+        }
+      }
+    },
+    {
+      "id": "match-7",
+      "leagueId": "la-liga",
+      "seasonId": "la-liga-2023-2024",
+      "homeTeamId": "team-8",
+      "awayTeamId": "team-9",
+      "date": "2023-11-12T20:00:00Z",
+      "status": "FINISHED",
+      "matchday": 13,
+      "stage": "REGULAR_SEASON",
+      "venue": "Santiago Bernabéu",
+      "referee": "José María Sánchez Martínez",
+      "homeTeam": {
+        "id": "team-8",
+        "name": "Real Madrid",
+        "shortName": "Madrid",
+        "logo": "https://placehold.co/100x100?text=RM"
+      },
+      "awayTeam": {
+        "id": "team-9",
+        "name": "Atletico Madrid",
+        "shortName": "Atlético",
+        "logo": "https://placehold.co/100x100?text=ATM"
+      },
+      "score": {
+        "homeTeamScore": 2,
+        "awayTeamScore": 0,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 0,
+        "fullTimeHome": 2,
+        "fullTimeAway": 0
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 62,
+          "shots": 16,
+          "shotsOnTarget": 6,
+          "passes": 578,
+          "passAccuracy": 88,
+          "fouls": 9,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 1,
+          "corners": 8,
+          "tackles": 15,
+          "clearances": 12,
+          "shotsBlocked": 4,
+          "expectedGoals": 2.12
+        },
+        "awayTeam": {
+          "possession": 38,
+          "shots": 8,
+          "shotsOnTarget": 2,
+          "passes": 342,
+          "passAccuracy": 78,
+          "fouls": 14,
+          "yellowCards": 4,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 3,
+          "tackles": 22,
+          "clearances": 26,
+          "shotsBlocked": 8,
+          "expectedGoals": 0.76
+        }
+      }
+    },
+    {
+      "id": "match-8",
+      "leagueId": "bundesliga",
+      "seasonId": "bundesliga-2023-2024",
+      "homeTeamId": "team-10",
+      "awayTeamId": "team-11",
+      "date": "2023-11-04T17:30:00Z",
+      "status": "FINISHED",
+      "matchday": 10,
+      "stage": "REGULAR_SEASON",
+      "venue": "Allianz Arena",
+      "referee": "Felix Zwayer",
+      "homeTeam": {
+        "id": "team-10",
+        "name": "Bayern Munich",
+        "shortName": "Bayern",
+        "logo": "https://placehold.co/100x100?text=FCB"
+      },
+      "awayTeam": {
+        "id": "team-11",
+        "name": "Borussia Dortmund",
+        "shortName": "Dortmund",
+        "logo": "https://placehold.co/100x100?text=BVB"
+      },
+      "score": {
+        "homeTeamScore": 4,
+        "awayTeamScore": 0,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 2,
+        "halfTimeAway": 0,
+        "fullTimeHome": 4,
+        "fullTimeAway": 0
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 65,
+          "shots": 20,
+          "shotsOnTarget": 10,
+          "passes": 612,
+          "passAccuracy": 89,
+          "fouls": 8,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 9,
+          "tackles": 17,
+          "clearances": 11,
+          "shotsBlocked": 3,
+          "expectedGoals": 3.76
+        },
+        "awayTeam": {
+          "possession": 35,
+          "shots": 9,
+          "shotsOnTarget": 2,
+          "passes": 342,
+          "passAccuracy": 81,
+          "fouls": 12,
+          "yellowCards": 3,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 4,
+          "tackles": 23,
+          "clearances": 24,
+          "shotsBlocked": 7,
+          "expectedGoals": 0.92
+        }
+      }
+    },
+    {
+      "id": "match-9",
+      "leagueId": "champions-league",
+      "seasonId": "champions-league-2023-2024",
+      "homeTeamId": "team-1",
+      "awayTeamId": "team-7",
+      "date": "2023-11-08T20:00:00Z",
+      "status": "FINISHED",
+      "matchday": 4,
+      "stage": "GROUP_STAGE",
+      "group": "C",
+      "venue": "Etihad Stadium",
+      "referee": "Daniele Orsato",
+      "homeTeam": {
+        "id": "team-1",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://placehold.co/100x100?text=MC"
+      },
+      "awayTeam": {
+        "id": "team-7",
+        "name": "Barcelona",
+        "shortName": "Barça",
+        "logo": "https://placehold.co/100x100?text=FCB"
+      },
+      "score": {
+        "homeTeamScore": 3,
+        "awayTeamScore": 1,
+        "winner": "HOME_TEAM",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 1,
+        "fullTimeHome": 3,
+        "fullTimeAway": 1
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 54,
+          "shots": 18,
+          "shotsOnTarget": 8,
+          "passes": 532,
+          "passAccuracy": 90,
+          "fouls": 9,
+          "yellowCards": 1,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 8,
+          "tackles": 16,
+          "clearances": 13,
+          "shotsBlocked": 4,
+          "expectedGoals": 2.86
+        },
+        "awayTeam": {
+          "possession": 46,
+          "shots": 13,
+          "shotsOnTarget": 5,
+          "passes": 452,
+          "passAccuracy": 87,
+          "fouls": 11,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 5,
+          "tackles": 18,
+          "clearances": 17,
+          "shotsBlocked": 5,
+          "expectedGoals": 1.42
+        }
+      }
+    },
+    {
+      "id": "match-10",
+      "leagueId": "champions-league",
+      "seasonId": "champions-league-2023-2024",
+      "homeTeamId": "team-10",
+      "awayTeamId": "team-8",
+      "date": "2023-11-22T20:00:00Z",
+      "status": "FINISHED",
+      "matchday": 5,
+      "stage": "GROUP_STAGE",
+      "group": "A",
+      "venue": "Allianz Arena",
+      "referee": "Clement Turpin",
+      "homeTeam": {
+        "id": "team-10",
+        "name": "Bayern Munich",
+        "shortName": "Bayern",
+        "logo": "https://placehold.co/100x100?text=FCB"
+      },
+      "awayTeam": {
+        "id": "team-8",
+        "name": "Real Madrid",
+        "shortName": "Madrid",
+        "logo": "https://placehold.co/100x100?text=RM"
+      },
+      "score": {
+        "homeTeamScore": 2,
+        "awayTeamScore": 2,
+        "winner": "DRAW",
+        "duration": "REGULAR",
+        "halfTimeHome": 1,
+        "halfTimeAway": 1,
+        "fullTimeHome": 2,
+        "fullTimeAway": 2
+      },
+      "stats": {
+        "homeTeam": {
+          "possession": 57,
+          "shots": 17,
+          "shotsOnTarget": 7,
+          "passes": 542,
+          "passAccuracy": 88,
+          "fouls": 10,
+          "yellowCards": 2,
+          "redCards": 0,
+          "offsides": 2,
+          "corners": 8,
+          "tackles": 18,
+          "clearances": 14,
+          "shotsBlocked": 5,
+          "expectedGoals": 2.34
+        },
+        "awayTeam": {
+          "possession": 43,
+          "shots": 14,
+          "shotsOnTarget": 6,
+          "passes": 412,
+          "passAccuracy": 85,
+          "fouls": 12,
+          "yellowCards": 3,
+          "redCards": 0,
+          "offsides": 3,
+          "corners": 5,
+          "tackles": 21,
+          "clearances": 18,
+          "shotsBlocked": 4,
+          "expectedGoals": 2.18
+        }
+      }
+    }
+  ]

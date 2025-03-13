@@ -1,0 +1,707 @@
+[
+    {
+      "teamId": "team-1",
+      "seasonId": "premier-league-2023-2024",
+      "matchesPlayed": 16,
+      "wins": 12,
+      "draws": 2,
+      "losses": 2,
+      "goalsFor": 42,
+      "goalsAgainst": 14,
+      "cleanSheets": 7,
+      "yellowCards": 25,
+      "redCards": 0,
+      "points": 38,
+      "position": 1,
+      "form": "WDWWW",
+      "homeRecord": {
+        "played": 8,
+        "wins": 7,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 26,
+        "goalsAgainst": 5
+      },
+      "awayRecord": {
+        "played": 8,
+        "wins": 5,
+        "draws": 1,
+        "losses": 2,
+        "goalsFor": 16,
+        "goalsAgainst": 9
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-6",
+          "result": "W",
+          "score": "3-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-5",
+          "result": "W",
+          "score": "3-1",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-4",
+          "result": "D",
+          "score": "2-2",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-3",
+          "result": "W",
+          "score": "3-0",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-2",
+          "result": "W",
+          "score": "2-1",
+          "venue": "H"
+        }
+      ]
+    },
+    {
+      "teamId": "team-2",
+      "seasonId": "premier-league-2023-2024",
+      "matchesPlayed": 16,
+      "wins": 11,
+      "draws": 2,
+      "losses": 3,
+      "goalsFor": 38,
+      "goalsAgainst": 15,
+      "cleanSheets": 6,
+      "yellowCards": 21,
+      "redCards": 1,
+      "points": 35,
+      "position": 2,
+      "form": "WDWLW",
+      "homeRecord": {
+        "played": 8,
+        "wins": 6,
+        "draws": 1,
+        "losses": 1,
+        "goalsFor": 22,
+        "goalsAgainst": 7
+      },
+      "awayRecord": {
+        "played": 8,
+        "wins": 5,
+        "draws": 1,
+        "losses": 2,
+        "goalsFor": 16,
+        "goalsAgainst": 8
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-5",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-6",
+          "result": "D",
+          "score": "1-1",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-3",
+          "result": "W",
+          "score": "2-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-1",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-4",
+          "result": "W",
+          "score": "3-1",
+          "venue": "H"
+        }
+      ]
+    },
+    {
+      "teamId": "team-3",
+      "seasonId": "premier-league-2023-2024",
+      "matchesPlayed": 16,
+      "wins": 9,
+      "draws": 3,
+      "losses": 4,
+      "goalsFor": 32,
+      "goalsAgainst": 17,
+      "cleanSheets": 6,
+      "yellowCards": 29,
+      "redCards": 1,
+      "points": 30,
+      "position": 3,
+      "form": "LWLWD",
+      "homeRecord": {
+        "played": 8,
+        "wins": 5,
+        "draws": 2,
+        "losses": 1,
+        "goalsFor": 18,
+        "goalsAgainst": 7
+      },
+      "awayRecord": {
+        "played": 8,
+        "wins": 4,
+        "draws": 1,
+        "losses": 3,
+        "goalsFor": 14,
+        "goalsAgainst": 10
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-4",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-2",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-1",
+          "result": "L",
+          "score": "0-3",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-6",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-5",
+          "result": "D",
+          "score": "1-1",
+          "venue": "A"
+        }
+      ]
+    },
+    {
+      "teamId": "team-4",
+      "seasonId": "premier-league-2023-2024",
+      "matchesPlayed": 16,
+      "wins": 9,
+      "draws": 3,
+      "losses": 4,
+      "goalsFor": 35,
+      "goalsAgainst": 21,
+      "cleanSheets": 5,
+      "yellowCards": 32,
+      "redCards": 2,
+      "points": 30,
+      "position": 4,
+      "form": "WWLDL",
+      "homeRecord": {
+        "played": 8,
+        "wins": 6,
+        "draws": 1,
+        "losses": 1,
+        "goalsFor": 22,
+        "goalsAgainst": 9
+      },
+      "awayRecord": {
+        "played": 8,
+        "wins": 3,
+        "draws": 2,
+        "losses": 3,
+        "goalsFor": 13,
+        "goalsAgainst": 12
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-3",
+          "result": "W",
+          "score": "2-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-1",
+          "result": "D",
+          "score": "2-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-5",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-2",
+          "result": "L",
+          "score": "1-3",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-6",
+          "result": "W",
+          "score": "3-0",
+          "venue": "H"
+        }
+      ]
+    },
+    {
+      "teamId": "team-7",
+      "seasonId": "la-liga-2023-2024",
+      "matchesPlayed": 14,
+      "wins": 11,
+      "draws": 2,
+      "losses": 1,
+      "goalsFor": 35,
+      "goalsAgainst": 12,
+      "cleanSheets": 7,
+      "yellowCards": 18,
+      "redCards": 0,
+      "points": 35,
+      "position": 1,
+      "form": "WWDWW",
+      "homeRecord": {
+        "played": 7,
+        "wins": 6,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 21,
+        "goalsAgainst": 5
+      },
+      "awayRecord": {
+        "played": 7,
+        "wins": 5,
+        "draws": 1,
+        "losses": 1,
+        "goalsFor": 14,
+        "goalsAgainst": 7
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-9",
+          "result": "W",
+          "score": "3-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-8",
+          "result": "W",
+          "score": "2-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "athletic-club",
+          "result": "D",
+          "score": "1-1",
+          "venue": "A"
+        },
+        {
+          "opponent": "sevilla",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "valencia",
+          "result": "W",
+          "score": "3-1",
+          "venue": "A"
+        }
+      ]
+    },
+    {
+      "teamId": "team-8",
+      "seasonId": "la-liga-2023-2024",
+      "matchesPlayed": 14,
+      "wins": 10,
+      "draws": 3,
+      "losses": 1,
+      "goalsFor": 33,
+      "goalsAgainst": 10,
+      "cleanSheets": 6,
+      "yellowCards": 23,
+      "redCards": 1,
+      "points": 33,
+      "position": 2,
+      "form": "WDWLW",
+      "homeRecord": {
+        "played": 7,
+        "wins": 6,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 20,
+        "goalsAgainst": 3
+      },
+      "awayRecord": {
+        "played": 7,
+        "wins": 4,
+        "draws": 2,
+        "losses": 1,
+        "goalsFor": 13,
+        "goalsAgainst": 7
+      },
+      "last5Matches": [
+        {
+          "opponent": "valencia",
+          "result": "W",
+          "score": "4-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-7",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-9",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "sevilla",
+          "result": "D",
+          "score": "1-1",
+          "venue": "A"
+        },
+        {
+          "opponent": "athletic-club",
+          "result": "W",
+          "score": "3-0",
+          "venue": "H"
+        }
+      ]
+    },
+    {
+      "teamId": "team-9",
+      "seasonId": "la-liga-2023-2024",
+      "matchesPlayed": 14,
+      "wins": 8,
+      "draws": 4,
+      "losses": 2,
+      "goalsFor": 24,
+      "goalsAgainst": 9,
+      "cleanSheets": 9,
+      "yellowCards": 36,
+      "redCards": 2,
+      "points": 28,
+      "position": 3,
+      "form": "LWLWD",
+      "homeRecord": {
+        "played": 7,
+        "wins": 5,
+        "draws": 2,
+        "losses": 0,
+        "goalsFor": 14,
+        "goalsAgainst": 2
+      },
+      "awayRecord": {
+        "played": 7,
+        "wins": 3,
+        "draws": 2,
+        "losses": 2,
+        "goalsFor": 10,
+        "goalsAgainst": 7
+      },
+      "last5Matches": [
+        {
+          "opponent": "team-7",
+          "result": "L",
+          "score": "0-3",
+          "venue": "A"
+        },
+        {
+          "opponent": "athletic-club",
+          "result": "W",
+          "score": "1-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-8",
+          "result": "L",
+          "score": "0-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "valencia",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "sevilla",
+          "result": "D",
+          "score": "1-1",
+          "venue": "A"
+        }
+      ]
+    },
+    {
+      "teamId": "team-10",
+      "seasonId": "bundesliga-2023-2024",
+      "matchesPlayed": 12,
+      "wins": 10,
+      "draws": 1,
+      "losses": 1,
+      "goalsFor": 37,
+      "goalsAgainst": 11,
+      "cleanSheets": 5,
+      "yellowCards": 15,
+      "redCards": 0,
+      "points": 31,
+      "position": 1,
+      "form": "WWDWW",
+      "homeRecord": {
+        "played": 6,
+        "wins": 6,
+        "draws": 0,
+        "losses": 0,
+        "goalsFor": 24,
+        "goalsAgainst": 4
+      },
+      "awayRecord": {
+        "played": 6,
+        "wins": 4,
+        "draws": 1,
+        "losses": 1,
+        "goalsFor": 13,
+        "goalsAgainst": 7
+      },
+      "last5Matches": [
+        {
+          "opponent": "werder-bremen",
+          "result": "W",
+          "score": "3-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-11",
+          "result": "W",
+          "score": "4-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-12",
+          "result": "D",
+          "score": "2-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "bayer-leverkusen",
+          "result": "W",
+          "score": "3-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "eintracht-frankfurt",
+          "result": "W",
+          "score": "2-1",
+          "venue": "A"
+        }
+      ]
+    },
+    {
+      "teamId": "team-11",
+      "seasonId": "bundesliga-2023-2024",
+      "matchesPlayed": 12,
+      "wins": 7,
+      "draws": 2,
+      "losses": 3,
+      "goalsFor": 29,
+      "goalsAgainst": 16,
+      "cleanSheets": 3,
+      "yellowCards": 22,
+      "redCards": 1,
+      "points": 23,
+      "position": 4,
+      "form": "LWDWL",
+      "homeRecord": {
+        "played": 6,
+        "wins": 5,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 18,
+        "goalsAgainst": 5
+      },
+      "awayRecord": {
+        "played": 6,
+        "wins": 2,
+        "draws": 1,
+        "losses": 3,
+        "goalsFor": 11,
+        "goalsAgainst": 11
+      },
+      "last5Matches": [
+        {
+          "opponent": "bayer-leverkusen",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-10",
+          "result": "L",
+          "score": "0-4",
+          "venue": "A"
+        },
+        {
+          "opponent": "eintracht-frankfurt",
+          "result": "D",
+          "score": "2-2",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-12",
+          "result": "W",
+          "score": "3-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "werder-bremen",
+          "result": "L",
+          "score": "1-2",
+          "venue": "A"
+        }
+      ]
+    },
+    {
+      "teamId": "team-12",
+      "seasonId": "bundesliga-2023-2024",
+      "matchesPlayed": 12,
+      "wins": 8,
+      "draws": 2,
+      "losses": 2,
+      "goalsFor": 26,
+      "goalsAgainst": 13,
+      "cleanSheets": 4,
+      "yellowCards": 20,
+      "redCards": 0,
+      "points": 26,
+      "position": 2,
+      "form": "WDWLW",
+      "homeRecord": {
+        "played": 6,
+        "wins": 5,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 16,
+        "goalsAgainst": 5
+      },
+      "awayRecord": {
+        "played": 6,
+        "wins": 3,
+        "draws": 1,
+        "losses": 2,
+        "goalsFor": 10,
+        "goalsAgainst": 8
+      },
+      "last5Matches": [
+        {
+          "opponent": "eintracht-frankfurt",
+          "result": "W",
+          "score": "2-0",
+          "venue": "H"
+        },
+        {
+          "opponent": "team-10",
+          "result": "D",
+          "score": "2-2",
+          "venue": "H"
+        },
+        {
+          "opponent": "werder-bremen",
+          "result": "W",
+          "score": "3-1",
+          "venue": "A"
+        },
+        {
+          "opponent": "team-11",
+          "result": "L",
+          "score": "1-3",
+          "venue": "A"
+        },
+        {
+          "opponent": "bayer-leverkusen",
+          "result": "W",
+          "score": "2-1",
+          "venue": "H"
+        }
+      ]
+    },
+    {
+      "teamId": "team-17",
+      "seasonId": "eredivisie-2023-2024",
+      "matchesPlayed": 12,
+      "wins": 10,
+      "draws": 1,
+      "losses": 1,
+      "goalsFor": 35,
+      "goalsAgainst": 13,
+      "cleanSheets": 5,
+      "yellowCards": 14,
+      "redCards": 0,
+      "points": 31,
+      "position": 1,
+      "form": "WWDWW",
+      "homeRecord": {
+        "played": 6,
+        "wins": 6,
+        "draws": 0,
+        "losses": 0,
+        "goalsFor": 22,
+        "goalsAgainst": 5
+      },
+      "awayRecord": {
+        "played": 6,
+        "wins": 4,
+        "draws": 1,
+        "losses": 1,
+        "goalsFor": 13,
+        "goalsAgainst": 8
+      },
+      "last5Matches": [
+        {
+          "opponent": "psv",
+          "result": "W",
+          "score": "3-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "az-alkmaar",
+          "result": "W",
+          "score": "2-0",
+          "venue": "A"
+        },
+        {
+          "opponent": "feyenoord",
+          "result": "D",
+          "score": "2-2",
+          "venue": "A"
+        },
+        {
+          "opponent": "twente",
+          "result": "W",
+          "score": "4-1",
+          "venue": "H"
+        },
+        {
+          "opponent": "utrecht",
+          "result": "W",
+          "score": "3-0",
+          "venue": "A"
+        }
+      ]
+    }
+  ]
+  
