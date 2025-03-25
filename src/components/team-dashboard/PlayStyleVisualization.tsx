@@ -47,13 +47,17 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   teamName = 'Team',
   className = '',
 }) => {
+  console.log("PlayStyleVisualization received metrics:", metrics);
+  
   // Transform metrics data for the radar chart
   const radarData = useTeamMetricsRadarData(metrics, ['possession', 'attacking', 'defensive', 'tempo']);
   
-  // Configure radar chart data keys
+  console.log("Generated radar data:", radarData);
+  
+  // Configure radar chart data keys - ensure the key matches what's in the radarData
   const dataKeys = [
     {
-      key: teamName,
+      key: 'teamName', // This must match the property name in the radar data!
       name: teamName,
       color: '#0ea5e9', // Primary blue
       fillOpacity: 0.6,
@@ -81,18 +85,22 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         bordered={false}
         infoTooltip="This radar chart shows key metrics normalized to a 0-100 scale across different categories. The further out on each axis, the stronger the team is in that metric."
       >
-        <RadarChart
-          data={radarData}
-          dataKeys={[
-            { key: teamName, name: teamName, color: '#0ea5e9', fillOpacity: 0.6 }
-          ]}
-          radiusAxisDomain={[0, 100]}
-          tooltipFormatter={tooltipFormatter}
-          height={350}
-          showLegend={false}
-          radiusAxisTickFormatter={(value) => `${value}`}
-          className="mx-auto"
-        />
+        {radarData.length > 0 ? (
+          <RadarChart
+            data={radarData}
+            dataKeys={dataKeys}
+            radiusAxisDomain={[0, 100]}
+            tooltipFormatter={tooltipFormatter}
+            height={350}
+            showLegend={true}
+            radiusAxisTickFormatter={(value) => `${value}`}
+            className="mx-auto"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <p className="text-gray-500">No data available to display</p>
+          </div>
+        )}
       </ChartContainer>
     </div>
   );

@@ -1,827 +1,227 @@
 [
-    {
-      "teamId": "team-1",
-      "seasonId": "premier-league-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 68.5,
-        "passCompletionRate": 91.2,
-        "progressivePassesPerMatch": 78.4,
-        "averageBuildUpTime": 14.2,
-        "passingSequencesOver5": 42.6,
-        "ppda": 6.3,
-        "fieldTiltPercentage": 71.8,
-        "directnessIndex": 42.1
+  {
+    "teamId": "arsenal",
+    "seasonId": "premier-league-2023-2024",
+    "updatedAt": "2024-02-15T12:00:00Z",
+    "possession": {
+      "possessionPercentage": 65.3,
+      "passCompletionRate": 89.7,
+      "progressivePassesPerMatch": 72.5,
+      "averageBuildUpTime": 13.8,
+      "passingSequencesOver5": 38.6,
+      "ppda": 7.2,
+      "fieldTiltPercentage": 68.4,
+      "directnessIndex": 43.5
+    },
+    "attacking": {
+      "goalsPerMatch": 2.3,
+      "xGPerMatch": 2.15,
+      "shotsPerMatch": 16.8,
+      "shotsOnTargetPerMatch": 6.7,
+      "bigChancesCreatedPerMatch": 3.6,
+      "setPieceGoalsPercentage": 15.2,
+      "counterAttackGoalsPercentage": 18.3,
+      "openPlayGoalsPercentage": 66.5,
+      "attackZones": {
+        "left": 32,
+        "center": 40,
+        "right": 28
       },
-      "attacking": {
-        "goalsPerMatch": 2.8,
-        "xGPerMatch": 2.62,
-        "shotsPerMatch": 18.4,
-        "shotsOnTargetPerMatch": 7.8,
-        "bigChancesCreatedPerMatch": 4.5,
-        "setPieceGoalsPercentage": 16.7,
-        "counterAttackGoalsPercentage": 12.5,
-        "openPlayGoalsPercentage": 70.8,
-        "attackZones": {
-          "left": 29,
-          "center": 42,
-          "right": 29
-        },
-        "crossesPerMatch": 17.2,
-        "dribbleSuccessRate": 69.5,
-        "touchesInBox": 32.4
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 0.8,
-        "xGAgainstPerMatch": 0.92,
-        "cleanSheetPercentage": 54.2,
-        "tacklesPerMatch": 15.8,
-        "interceptionPerMatch": 8.2,
-        "clearancesPerMatch": 12.5,
-        "defensiveLineHeight": 82,
-        "pressingIntensity": 87,
-        "challengesWonPercentage": 61.4,
-        "aerialDuelsWonPercentage": 54.8,
-        "defensiveActionsPerMatch": 56.2,
-        "opponentPassCompletionAllowed": 78.4,
-        "defensiveRecoveryTime": 5.4
-      },
-      "tempo": {
-        "directPlayIndex": 38,
-        "averagePossessionDuration": 26.3,
-        "transitionSpeedAttacking": 7.2,
-        "transitionSpeedDefensive": 4.8,
-        "counterPressAfterLoss": 86,
-        "verticalityIndex": 44.5,
-        "passesPerOffensiveAction": 6.8,
-        "progressiveCarriesPerMatch": 32.7,
-        "gameStateAdaptability": {
-          "winningStyle": 52,
-          "drawingStyle": 72,
-          "losingStyle": 84
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 92,
-        "pressingIntensity": 85,
-        "buildUpSpeed": 45,
-        "defensiveCompactness": 80,
-        "attackingDirectness": 38,
-        "widthOfPlay": 68,
-        "counterAttackThreat": 45,
-        "setPlayThreat": 62,
-        "primaryPlayStyle": "POSSESSION_BASED",
-        "secondaryPlayStyle": "HIGH_PRESSING"
+      "crossesPerMatch": 16.4,
+      "dribbleSuccessRate": 68.7,
+      "touchesInBox": 28.9
+    },
+    "defensive": {
+      "goalsAgainstPerMatch": 0.9,
+      "xGAgainstPerMatch": 1.05,
+      "cleanSheetPercentage": 47.8,
+      "tacklesPerMatch": 17.2,
+      "interceptionPerMatch": 9.6,
+      "clearancesPerMatch": 15.3,
+      "defensiveLineHeight": 73,
+      "pressingIntensity": 82,
+      "challengesWonPercentage": 62.7,
+      "aerialDuelsWonPercentage": 57.3,
+      "defensiveActionsPerMatch": 59.8,
+      "opponentPassCompletionAllowed": 76.4,
+      "defensiveRecoveryTime": 5.2
+    },
+    "tempo": {
+      "directPlayIndex": 42,
+      "averagePossessionDuration": 22.6,
+      "transitionSpeedAttacking": 6.8,
+      "transitionSpeedDefensive": 4.6,
+      "counterPressAfterLoss": 84,
+      "verticalityIndex": 51.3,
+      "passesPerOffensiveAction": 6.2,
+      "progressiveCarriesPerMatch": 29.5,
+      "gameStateAdaptability": {
+        "winningStyle": 39,
+        "drawingStyle": 68,
+        "losingStyle": 87
       }
     },
-    {
-      "teamId": "team-2",
-      "seasonId": "premier-league-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 60.2,
-        "passCompletionRate": 85.4,
-        "progressivePassesPerMatch": 64.8,
-        "averageBuildUpTime": 10.3,
-        "passingSequencesOver5": 32.5,
-        "ppda": 7.8,
-        "fieldTiltPercentage": 66.7,
-        "directnessIndex": 58.3
-      },
-      "attacking": {
-        "goalsPerMatch": 2.4,
-        "xGPerMatch": 2.28,
-        "shotsPerMatch": 16.8,
-        "shotsOnTargetPerMatch": 6.9,
-        "bigChancesCreatedPerMatch": 3.8,
-        "setPieceGoalsPercentage": 18.3,
-        "counterAttackGoalsPercentage": 24.7,
-        "openPlayGoalsPercentage": 57.0,
-        "attackZones": {
-          "left": 34,
-          "center": 32,
-          "right": 34
-        },
-        "crossesPerMatch": 19.6,
-        "dribbleSuccessRate": 64.8,
-        "touchesInBox": 28.7
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 0.9,
-        "xGAgainstPerMatch": 1.05,
-        "cleanSheetPercentage": 50.0,
-        "tacklesPerMatch": 18.4,
-        "interceptionPerMatch": 9.7,
-        "clearancesPerMatch": 15.2,
-        "defensiveLineHeight": 72,
-        "pressingIntensity": 92,
-        "challengesWonPercentage": 63.1,
-        "aerialDuelsWonPercentage": 59.2,
-        "defensiveActionsPerMatch": 62.4,
-        "opponentPassCompletionAllowed": 75.6,
-        "defensiveRecoveryTime": 4.3
-      },
-      "tempo": {
-        "directPlayIndex": 54,
-        "averagePossessionDuration": 18.7,
-        "transitionSpeedAttacking": 5.6,
-        "transitionSpeedDefensive": 3.9,
-        "counterPressAfterLoss": 91,
-        "verticalityIndex": 60.5,
-        "passesPerOffensiveAction": 5.2,
-        "progressiveCarriesPerMatch": 29.8,
-        "gameStateAdaptability": {
-          "winningStyle": 48,
-          "drawingStyle": 67,
-          "losingStyle": 88
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 78,
-        "pressingIntensity": 94,
-        "buildUpSpeed": 62,
-        "defensiveCompactness": 78,
-        "attackingDirectness": 58,
-        "widthOfPlay": 72,
-        "counterAttackThreat": 78,
-        "setPlayThreat": 65,
-        "primaryPlayStyle": "HIGH_PRESSING",
-        "secondaryPlayStyle": "COUNTER_ATTACKING"
-      }
-    },
-    {
-      "teamId": "team-3",
-      "seasonId": "premier-league-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 59.8,
-        "passCompletionRate": 87.3,
-        "progressivePassesPerMatch": 56.2,
-        "averageBuildUpTime": 13.6,
-        "passingSequencesOver5": 34.8,
-        "ppda": 9.2,
-        "fieldTiltPercentage": 61.4,
-        "directnessIndex": 45.8
-      },
-      "attacking": {
-        "goalsPerMatch": 2.0,
-        "xGPerMatch": 1.86,
-        "shotsPerMatch": 14.2,
-        "shotsOnTargetPerMatch": 5.7,
-        "bigChancesCreatedPerMatch": 3.1,
-        "setPieceGoalsPercentage": 24.2,
-        "counterAttackGoalsPercentage": 18.4,
-        "openPlayGoalsPercentage": 57.4,
-        "attackZones": {
-          "left": 28,
-          "center": 40,
-          "right": 32
-        },
-        "crossesPerMatch": 16.8,
-        "dribbleSuccessRate": 62.7,
-        "touchesInBox": 24.6
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 0.7,
-        "xGAgainstPerMatch": 0.85,
-        "cleanSheetPercentage": 58.3,
-        "tacklesPerMatch": 16.2,
-        "interceptionPerMatch": 11.5,
-        "clearancesPerMatch": 17.8,
-        "defensiveLineHeight": 65,
-        "pressingIntensity": 76,
-        "challengesWonPercentage": 65.8,
-        "aerialDuelsWonPercentage": 60.1,
-        "defensiveActionsPerMatch": 60.7,
-        "opponentPassCompletionAllowed": 76.2,
-        "defensiveRecoveryTime": 5.8
-      },
-      "tempo": {
-        "directPlayIndex": 46,
-        "averagePossessionDuration": 22.4,
-        "transitionSpeedAttacking": 6.8,
-        "transitionSpeedDefensive": 5.1,
-        "counterPressAfterLoss": 75,
-        "verticalityIndex": 48.2,
-        "passesPerOffensiveAction": 6.4,
-        "progressiveCarriesPerMatch": 24.5,
-        "gameStateAdaptability": {
-          "winningStyle": 42,
-          "drawingStyle": 60,
-          "losingStyle": 75
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 75,
-        "pressingIntensity": 74,
-        "buildUpSpeed": 52,
-        "defensiveCompactness": 85,
-        "attackingDirectness": 45,
-        "widthOfPlay": 65,
-        "counterAttackThreat": 62,
-        "setPlayThreat": 78,
-        "primaryPlayStyle": "BALANCED",
-        "secondaryPlayStyle": "LOW_BLOCK"
-      }
-    },
-    {
-      "teamId": "team-4",
-      "seasonId": "premier-league-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 58.7,
-        "passCompletionRate": 86.5,
-        "progressivePassesPerMatch": 59.3,
-        "averageBuildUpTime": 12.8,
-        "passingSequencesOver5": 31.2,
-        "ppda": 8.7,
-        "fieldTiltPercentage": 62.8,
-        "directnessIndex": 50.3
-      },
-      "attacking": {
-        "goalsPerMatch": 2.2,
-        "xGPerMatch": 2.07,
-        "shotsPerMatch": 15.6,
-        "shotsOnTargetPerMatch": 6.3,
-        "bigChancesCreatedPerMatch": 3.4,
-        "setPieceGoalsPercentage": 16.8,
-        "counterAttackGoalsPercentage": 20.6,
-        "openPlayGoalsPercentage": 62.6,
-        "attackZones": {
-          "left": 26,
-          "center": 38,
-          "right": 36
-        },
-        "crossesPerMatch": 15.7,
-        "dribbleSuccessRate": 67.5,
-        "touchesInBox": 26.8
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.1,
-        "xGAgainstPerMatch": 1.24,
-        "cleanSheetPercentage": 41.7,
-        "tacklesPerMatch": 17.3,
-        "interceptionPerMatch": 10.2,
-        "clearancesPerMatch": 14.9,
-        "defensiveLineHeight": 70,
-        "pressingIntensity": 82,
-        "challengesWonPercentage": 62.3,
-        "aerialDuelsWonPercentage": 58.7,
-        "defensiveActionsPerMatch": 58.4,
-        "opponentPassCompletionAllowed": 77.5,
-        "defensiveRecoveryTime": 5.2
-      },
-      "tempo": {
-        "directPlayIndex": 51,
-        "averagePossessionDuration": 20.6,
-        "transitionSpeedAttacking": 6.5,
-        "transitionSpeedDefensive": 4.8,
-        "counterPressAfterLoss": 80,
-        "verticalityIndex": 53.7,
-        "passesPerOffensiveAction": 5.8,
-        "progressiveCarriesPerMatch": 27.3,
-        "gameStateAdaptability": {
-          "winningStyle": 46,
-          "drawingStyle": 65,
-          "losingStyle": 82
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 76,
-        "pressingIntensity": 80,
-        "buildUpSpeed": 58,
-        "defensiveCompactness": 72,
-        "attackingDirectness": 52,
-        "widthOfPlay": 68,
-        "counterAttackThreat": 65,
-        "setPlayThreat": 55,
-        "primaryPlayStyle": "POSSESSION_BASED",
-        "secondaryPlayStyle": "HIGH_PRESSING"
-      }
-    },
-    {
-      "teamId": "team-7",
-      "seasonId": "la-liga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 70.3,
-        "passCompletionRate": 92.6,
-        "progressivePassesPerMatch": 82.1,
-        "averageBuildUpTime": 15.7,
-        "passingSequencesOver5": 46.3,
-        "ppda": 5.8,
-        "fieldTiltPercentage": 73.6,
-        "directnessIndex": 38.7
-      },
-      "attacking": {
-        "goalsPerMatch": 2.5,
-        "xGPerMatch": 2.43,
-        "shotsPerMatch": 17.8,
-        "shotsOnTargetPerMatch": 7.5,
-        "bigChancesCreatedPerMatch": 4.2,
-        "setPieceGoalsPercentage": 14.3,
-        "counterAttackGoalsPercentage": 10.2,
-        "openPlayGoalsPercentage": 75.5,
-        "attackZones": {
-          "left": 30,
-          "center": 45,
-          "right": 25
-        },
-        "crossesPerMatch": 14.8,
-        "dribbleSuccessRate": 71.2,
-        "touchesInBox": 31.5
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 0.9,
-        "xGAgainstPerMatch": 1.02,
-        "cleanSheetPercentage": 50.0,
-        "tacklesPerMatch": 14.6,
-        "interceptionPerMatch": 7.8,
-        "clearancesPerMatch": 11.3,
-        "defensiveLineHeight": 85,
-        "pressingIntensity": 84,
-        "challengesWonPercentage": 59.7,
-        "aerialDuelsWonPercentage": 52.3,
-        "defensiveActionsPerMatch": 53.8,
-        "opponentPassCompletionAllowed": 79.2,
-        "defensiveRecoveryTime": 5.6
-      },
-      "tempo": {
-        "directPlayIndex": 35,
-        "averagePossessionDuration": 28.4,
-        "transitionSpeedAttacking": 7.8,
-        "transitionSpeedDefensive": 5.1,
-        "counterPressAfterLoss": 83,
-        "verticalityIndex": 42.1,
-        "passesPerOffensiveAction": 7.3,
-        "progressiveCarriesPerMatch": 34.2,
-        "gameStateAdaptability": {
-          "winningStyle": 30,
-          "drawingStyle": 68,
-          "losingStyle": 82
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 95,
-        "pressingIntensity": 82,
-        "buildUpSpeed": 36,
-        "defensiveCompactness": 76,
-        "attackingDirectness": 32,
-        "widthOfPlay": 65,
-        "counterAttackThreat": 38,
-        "setPlayThreat": 58,
-        "primaryPlayStyle": "TIKI_TAKA",
-        "secondaryPlayStyle": "POSSESSION_BASED"
-      }
-    },
-    {
-      "teamId": "team-8",
-      "seasonId": "la-liga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 63.8,
-        "passCompletionRate": 89.4,
-        "progressivePassesPerMatch": 68.5,
-        "averageBuildUpTime": 11.8,
-        "passingSequencesOver5": 36.9,
-        "ppda": 7.2,
-        "fieldTiltPercentage": 67.3,
-        "directnessIndex": 54.2
-      },
-      "attacking": {
-        "goalsPerMatch": 2.6,
-        "xGPerMatch": 2.37,
-        "shotsPerMatch": 16.9,
-        "shotsOnTargetPerMatch": 7.1,
-        "bigChancesCreatedPerMatch": 3.9,
-        "setPieceGoalsPercentage": 15.8,
-        "counterAttackGoalsPercentage": 25.3,
-        "openPlayGoalsPercentage": 58.9,
-        "attackZones": {
-          "left": 38,
-          "center": 35,
-          "right": 27
-        },
-        "crossesPerMatch": 18.3,
-        "dribbleSuccessRate": 68.4,
-        "touchesInBox": 29.6
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.0,
-        "xGAgainstPerMatch": 1.15,
-        "cleanSheetPercentage": 45.8,
-        "tacklesPerMatch": 16.8,
-        "interceptionPerMatch": 9.3,
-        "clearancesPerMatch": 13.4,
-        "defensiveLineHeight": 76,
-        "pressingIntensity": 78,
-        "challengesWonPercentage": 62.5,
-        "aerialDuelsWonPercentage": 57.4,
-        "defensiveActionsPerMatch": 56.9,
-        "opponentPassCompletionAllowed": 77.1,
-        "defensiveRecoveryTime": 4.9
-      },
-      "tempo": {
-        "directPlayIndex": 56,
-        "averagePossessionDuration": 21.5,
-        "transitionSpeedAttacking": 6.1,
-        "transitionSpeedDefensive": 4.5,
-        "counterPressAfterLoss": 76,
-        "verticalityIndex": 57.3,
-        "passesPerOffensiveAction": 5.9,
-        "progressiveCarriesPerMatch": 30.6,
-        "gameStateAdaptability": {
-          "winningStyle": 42,
-          "drawingStyle": 64,
-          "losingStyle": 85
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 82,
-        "pressingIntensity": 75,
-        "buildUpSpeed": 64,
-        "defensiveCompactness": 74,
-        "attackingDirectness": 58,
-        "widthOfPlay": 70,
-        "counterAttackThreat": 82,
-        "setPlayThreat": 60,
-        "primaryPlayStyle": "VERTICAL_TIKI_TAKA",
-        "secondaryPlayStyle": "COUNTER_ATTACKING"
-      }
-    },
-    {
-      "teamId": "team-9",
-      "seasonId": "la-liga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 48.2,
-        "passCompletionRate": 79.8,
-        "progressivePassesPerMatch": 42.7,
-        "averageBuildUpTime": 9.3,
-        "passingSequencesOver5": 21.6,
-        "ppda": 12.4,
-        "fieldTiltPercentage": 45.2,
-        "directnessIndex": 68.5
-      },
-      "attacking": {
-        "goalsPerMatch": 1.7,
-        "xGPerMatch": 1.54,
-        "shotsPerMatch": 11.2,
-        "shotsOnTargetPerMatch": 4.3,
-        "bigChancesCreatedPerMatch": 2.5,
-        "setPieceGoalsPercentage": 26.8,
-        "counterAttackGoalsPercentage": 35.7,
-        "openPlayGoalsPercentage": 37.5,
-        "attackZones": {
-          "left": 32,
-          "center": 28,
-          "right": 40
-        },
-        "crossesPerMatch": 12.8,
-        "dribbleSuccessRate": 58.7,
-        "touchesInBox": 18.3
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 0.6,
-        "xGAgainstPerMatch": 0.72,
-        "cleanSheetPercentage": 62.5,
-        "tacklesPerMatch": 22.8,
-        "interceptionPerMatch": 15.6,
-        "clearancesPerMatch": 24.3,
-        "defensiveLineHeight": 32,
-        "pressingIntensity": 62,
-        "challengesWonPercentage": 68.7,
-        "aerialDuelsWonPercentage": 65.2,
-        "defensiveActionsPerMatch": 74.5,
-        "opponentPassCompletionAllowed": 68.3,
-        "defensiveRecoveryTime": 7.8
-      },
-      "tempo": {
-        "directPlayIndex": 72,
-        "averagePossessionDuration": 12.6,
-        "transitionSpeedAttacking": 5.2,
-        "transitionSpeedDefensive": 6.8,
-        "counterPressAfterLoss": 58,
-        "verticalityIndex": 72.6,
-        "passesPerOffensiveAction": 3.8,
-        "progressiveCarriesPerMatch": 16.7,
-        "gameStateAdaptability": {
-          "winningStyle": 28,
-          "drawingStyle": 42,
-          "losingStyle": 68
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 35,
-        "pressingIntensity": 45,
-        "buildUpSpeed": 75,
-        "defensiveCompactness": 92,
-        "attackingDirectness": 82,
-        "widthOfPlay": 60,
-        "counterAttackThreat": 88,
-        "setPlayThreat": 72,
-        "primaryPlayStyle": "LOW_BLOCK",
-        "secondaryPlayStyle": "COUNTER_ATTACKING"
-      }
-    },
-    {
-      "teamId": "team-10",
-      "seasonId": "bundesliga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 66.8,
-        "passCompletionRate": 88.7,
-        "progressivePassesPerMatch": 72.3,
-        "averageBuildUpTime": 11.4,
-        "passingSequencesOver5": 38.2,
-        "ppda": 6.7,
-        "fieldTiltPercentage": 70.5,
-        "directnessIndex": 52.8
-      },
-      "attacking": {
-        "goalsPerMatch": 3.1,
-        "xGPerMatch": 2.85,
-        "shotsPerMatch": 19.2,
-        "shotsOnTargetPerMatch": 8.3,
-        "bigChancesCreatedPerMatch": 4.6,
-        "setPieceGoalsPercentage": 17.2,
-        "counterAttackGoalsPercentage": 22.8,
-        "openPlayGoalsPercentage": 60.0,
-        "attackZones": {
-          "left": 32,
-          "center": 38,
-          "right": 30
-        },
-        "crossesPerMatch": 21.4,
-        "dribbleSuccessRate": 65.3,
-        "touchesInBox": 34.8
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.0,
-        "xGAgainstPerMatch": 1.12,
-        "cleanSheetPercentage": 47.8,
-        "tacklesPerMatch": 19.6,
-        "interceptionPerMatch": 10.8,
-        "clearancesPerMatch": 14.1,
-        "defensiveLineHeight": 78,
-        "pressingIntensity": 88,
-        "challengesWonPercentage": 64.2,
-        "aerialDuelsWonPercentage": 61.8,
-        "defensiveActionsPerMatch": 62.8,
-        "opponentPassCompletionAllowed": 74.5,
-        "defensiveRecoveryTime": 4.5
-      },
-      "tempo": {
-        "directPlayIndex": 58,
-        "averagePossessionDuration": 17.3,
-        "transitionSpeedAttacking": 5.7,
-        "transitionSpeedDefensive": 4.1,
-        "counterPressAfterLoss": 89,
-        "verticalityIndex": 63.8,
-        "passesPerOffensiveAction": 5.1,
-        "progressiveCarriesPerMatch": 32.4,
-        "gameStateAdaptability": {
-          "winningStyle": 62,
-          "drawingStyle": 78,
-          "losingStyle": 90
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 85,
-        "pressingIntensity": 90,
-        "buildUpSpeed": 65,
-        "defensiveCompactness": 76,
-        "attackingDirectness": 60,
-        "widthOfPlay": 68,
-        "counterAttackThreat": 72,
-        "setPlayThreat": 64,
-        "primaryPlayStyle": "HIGH_PRESSING",
-        "secondaryPlayStyle": "VERTICAL_TIKI_TAKA"
-      }
-    },
-    {
-      "teamId": "team-11",
-      "seasonId": "bundesliga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 58.4,
-        "passCompletionRate": 83.6,
-        "progressivePassesPerMatch": 61.8,
-        "averageBuildUpTime": 9.7,
-        "passingSequencesOver5": 28.7,
-        "ppda": 8.3,
-        "fieldTiltPercentage": 64.2,
-        "directnessIndex": 61.5
-      },
-      "attacking": {
-        "goalsPerMatch": 2.4,
-        "xGPerMatch": 2.18,
-        "shotsPerMatch": 15.7,
-        "shotsOnTargetPerMatch": 6.6,
-        "bigChancesCreatedPerMatch": 3.5,
-        "setPieceGoalsPercentage": 18.7,
-        "counterAttackGoalsPercentage": 32.4,
-        "openPlayGoalsPercentage": 48.9,
-        "attackZones": {
-          "left": 35,
-          "center": 30,
-          "right": 35
-        },
-        "crossesPerMatch": 17.8,
-        "dribbleSuccessRate": 63.4,
-        "touchesInBox": 27.5
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.2,
-        "xGAgainstPerMatch": 1.34,
-        "cleanSheetPercentage": 38.1,
-        "tacklesPerMatch": 20.4,
-        "interceptionPerMatch": 12.3,
-        "clearancesPerMatch": 16.7,
-        "defensiveLineHeight": 75,
-        "pressingIntensity": 86,
-        "challengesWonPercentage": 60.8,
-        "aerialDuelsWonPercentage": 56.3,
-        "defensiveActionsPerMatch": 65.7,
-        "opponentPassCompletionAllowed": 73.6,
-        "defensiveRecoveryTime": 4.7
-      },
-      "tempo": {
-        "directPlayIndex": 65,
-        "averagePossessionDuration": 15.2,
-        "transitionSpeedAttacking": 5.3,
-        "transitionSpeedDefensive": 4.2,
-        "counterPressAfterLoss": 85,
-        "verticalityIndex": 67.4,
-        "passesPerOffensiveAction": 4.6,
-        "progressiveCarriesPerMatch": 28.3,
-        "gameStateAdaptability": {
-          "winningStyle": 55,
-          "drawingStyle": 72,
-          "losingStyle": 86
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 70,
-        "pressingIntensity": 88,
-        "buildUpSpeed": 74,
-        "defensiveCompactness": 68,
-        "attackingDirectness": 72,
-        "widthOfPlay": 75,
-        "counterAttackThreat": 85,
-        "setPlayThreat": 62,
-        "primaryPlayStyle": "COUNTER_ATTACKING",
-        "secondaryPlayStyle": "HIGH_PRESSING"
-      }
-    },
-    {
-      "teamId": "team-12",
-      "seasonId": "bundesliga-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 57.2,
-        "passCompletionRate": 82.8,
-        "progressivePassesPerMatch": 58.6,
-        "averageBuildUpTime": 9.2,
-        "passingSequencesOver5": 27.3,
-        "ppda": 8.7,
-        "fieldTiltPercentage": 62.8,
-        "directnessIndex": 64.7
-      },
-      "attacking": {
-        "goalsPerMatch": 2.2,
-        "xGPerMatch": 2.03,
-        "shotsPerMatch": 14.9,
-        "shotsOnTargetPerMatch": 6.1,
-        "bigChancesCreatedPerMatch": 3.2,
-        "setPieceGoalsPercentage": 17.5,
-        "counterAttackGoalsPercentage": 34.8,
-        "openPlayGoalsPercentage": 47.7,
-        "attackZones": {
-          "left": 34,
-          "center": 32,
-          "right": 34
-        },
-        "crossesPerMatch": 16.4,
-        "dribbleSuccessRate": 62.8,
-        "touchesInBox": 26.3
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.1,
-        "xGAgainstPerMatch": 1.26,
-        "cleanSheetPercentage": 40.9,
-        "tacklesPerMatch": 21.2,
-        "interceptionPerMatch": 13.4,
-        "clearancesPerMatch": 17.3,
-        "defensiveLineHeight": 70,
-        "pressingIntensity": 87,
-        "challengesWonPercentage": 61.5,
-        "aerialDuelsWonPercentage": 57.8,
-        "defensiveActionsPerMatch": 67.2,
-        "opponentPassCompletionAllowed": 72.4,
-        "defensiveRecoveryTime": 4.3
-      },
-      "tempo": {
-        "directPlayIndex": 68,
-        "averagePossessionDuration": 14.5,
-        "transitionSpeedAttacking": 5.1,
-        "transitionSpeedDefensive": 4.0,
-        "counterPressAfterLoss": 84,
-        "verticalityIndex": 69.6,
-        "passesPerOffensiveAction": 4.4,
-        "progressiveCarriesPerMatch": 26.8,
-        "gameStateAdaptability": {
-          "winningStyle": 52,
-          "drawingStyle": 70,
-          "losingStyle": 87
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 68,
-        "pressingIntensity": 86,
-        "buildUpSpeed": 78,
-        "defensiveCompactness": 70,
-        "attackingDirectness": 76,
-        "widthOfPlay": 72,
-        "counterAttackThreat": 88,
-        "setPlayThreat": 60,
-        "primaryPlayStyle": "COUNTER_ATTACKING",
-        "secondaryPlayStyle": "HIGH_PRESSING"
-      }
-    },
-    {
-      "teamId": "team-17",
-      "seasonId": "eredivisie-2023-2024",
-      "updatedAt": "2024-02-15T12:00:00Z",
-      "possession": {
-        "possessionPercentage": 65.4,
-        "passCompletionRate": 90.2,
-        "progressivePassesPerMatch": 74.8,
-        "averageBuildUpTime": 13.6,
-        "passingSequencesOver5": 39.7,
-        "ppda": 6.9,
-        "fieldTiltPercentage": 69.3,
-        "directnessIndex": 48.5
-      },
-      "attacking": {
-        "goalsPerMatch": 2.9,
-        "xGPerMatch": 2.72,
-        "shotsPerMatch": 18.6,
-        "shotsOnTargetPerMatch": 7.9,
-        "bigChancesCreatedPerMatch": 4.3,
-        "setPieceGoalsPercentage": 15.4,
-        "counterAttackGoalsPercentage": 18.6,
-        "openPlayGoalsPercentage": 66.0,
-        "attackZones": {
-          "left": 31,
-          "center": 40,
-          "right": 29
-        },
-        "crossesPerMatch": 16.8,
-        "dribbleSuccessRate": 70.3,
-        "touchesInBox": 32.1
-      },
-      "defensive": {
-        "goalsAgainstPerMatch": 1.1,
-        "xGAgainstPerMatch": 1.23,
-        "cleanSheetPercentage": 42.3,
-        "tacklesPerMatch": 16.5,
-        "interceptionPerMatch": 9.2,
-        "clearancesPerMatch": 13.8,
-        "defensiveLineHeight": 82,
-        "pressingIntensity": 85,
-        "challengesWonPercentage": 62.7,
-        "aerialDuelsWonPercentage": 56.4,
-        "defensiveActionsPerMatch": 57.5,
-        "opponentPassCompletionAllowed": 76.3,
-        "defensiveRecoveryTime": 4.8
-      },
-      "tempo": {
-        "directPlayIndex": 47,
-        "averagePossessionDuration": 22.8,
-        "transitionSpeedAttacking": 6.5,
-        "transitionSpeedDefensive": 4.7,
-        "counterPressAfterLoss": 82,
-        "verticalityIndex": 54.8,
-        "passesPerOffensiveAction": 6.1,
-        "progressiveCarriesPerMatch": 31.5,
-        "gameStateAdaptability": {
-          "winningStyle": 58,
-          "drawingStyle": 72,
-          "losingStyle": 85
-        }
-      },
-      "playStyleCategories": {
-        "possessionDominance": 86,
-        "pressingIntensity": 83,
-        "buildUpSpeed": 56,
-        "defensiveCompactness": 72,
-        "attackingDirectness": 50,
-        "widthOfPlay": 67,
-        "counterAttackThreat": 60,
-        "setPlayThreat": 58,
-        "primaryPlayStyle": "POSSESSION_BASED",
-        "secondaryPlayStyle": "HIGH_PRESSING"
-      }
+    "playStyleCategories": {
+      "possessionDominance": 88,
+      "pressingIntensity": 82,
+      "buildUpSpeed": 42,
+      "defensiveCompactness": 79,
+      "attackingDirectness": 45,
+      "widthOfPlay": 65,
+      "counterAttackThreat": 52,
+      "setPlayThreat": 58,
+      "primaryPlayStyle": "POSSESSION_BASED",
+      "secondaryPlayStyle": "HIGH_PRESSING"
     }
-  ]
+  },
+  {
+    "teamId": "man-city",
+    "seasonId": "premier-league-2023-2024",
+    "updatedAt": "2024-02-15T12:00:00Z",
+    "possession": {
+      "possessionPercentage": 68.5,
+      "passCompletionRate": 91.2,
+      "progressivePassesPerMatch": 78.4,
+      "averageBuildUpTime": 14.2,
+      "passingSequencesOver5": 42.6,
+      "ppda": 6.3,
+      "fieldTiltPercentage": 71.8,
+      "directnessIndex": 42.1
+    },
+    "attacking": {
+      "goalsPerMatch": 2.8,
+      "xGPerMatch": 2.62,
+      "shotsPerMatch": 18.4,
+      "shotsOnTargetPerMatch": 7.8,
+      "bigChancesCreatedPerMatch": 4.5,
+      "setPieceGoalsPercentage": 16.7,
+      "counterAttackGoalsPercentage": 12.5,
+      "openPlayGoalsPercentage": 70.8,
+      "attackZones": {
+        "left": 29,
+        "center": 42,
+        "right": 29
+      },
+      "crossesPerMatch": 17.2,
+      "dribbleSuccessRate": 69.5,
+      "touchesInBox": 32.4
+    },
+    "defensive": {
+      "goalsAgainstPerMatch": 0.8,
+      "xGAgainstPerMatch": 0.92,
+      "cleanSheetPercentage": 54.2,
+      "tacklesPerMatch": 15.8,
+      "interceptionPerMatch": 8.2,
+      "clearancesPerMatch": 12.5,
+      "defensiveLineHeight": 82,
+      "pressingIntensity": 87,
+      "challengesWonPercentage": 61.4,
+      "aerialDuelsWonPercentage": 54.8,
+      "defensiveActionsPerMatch": 56.2,
+      "opponentPassCompletionAllowed": 78.4,
+      "defensiveRecoveryTime": 5.4
+    },
+    "tempo": {
+      "directPlayIndex": 38,
+      "averagePossessionDuration": 26.3,
+      "transitionSpeedAttacking": 7.2,
+      "transitionSpeedDefensive": 4.8,
+      "counterPressAfterLoss": 86,
+      "verticalityIndex": 44.5,
+      "passesPerOffensiveAction": 6.8,
+      "progressiveCarriesPerMatch": 32.7,
+      "gameStateAdaptability": {
+        "winningStyle": 52,
+        "drawingStyle": 72,
+        "losingStyle": 84
+      }
+    },
+    "playStyleCategories": {
+      "possessionDominance": 92,
+      "pressingIntensity": 85,
+      "buildUpSpeed": 45,
+      "defensiveCompactness": 80,
+      "attackingDirectness": 38,
+      "widthOfPlay": 68,
+      "counterAttackThreat": 45,
+      "setPlayThreat": 62,
+      "primaryPlayStyle": "POSSESSION_BASED",
+      "secondaryPlayStyle": "HIGH_PRESSING"
+    }
+  },
+  {
+    "teamId": "liverpool",
+    "seasonId": "premier-league-2023-2024",
+    "updatedAt": "2024-02-15T12:00:00Z",
+    "possession": {
+      "possessionPercentage": 60.2,
+      "passCompletionRate": 85.4,
+      "progressivePassesPerMatch": 64.8,
+      "averageBuildUpTime": 10.3,
+      "passingSequencesOver5": 32.5,
+      "ppda": 7.8,
+      "fieldTiltPercentage": 66.7,
+      "directnessIndex": 58.3
+    },
+    "attacking": {
+      "goalsPerMatch": 2.4,
+      "xGPerMatch": 2.28,
+      "shotsPerMatch": 16.8,
+      "shotsOnTargetPerMatch": 6.9,
+      "bigChancesCreatedPerMatch": 3.8,
+      "setPieceGoalsPercentage": 18.3,
+      "counterAttackGoalsPercentage": 24.7,
+      "openPlayGoalsPercentage": 57.0,
+      "attackZones": {
+        "left": 34,
+        "center": 32,
+        "right": 34
+      },
+      "crossesPerMatch": 19.6,
+      "dribbleSuccessRate": 64.8,
+      "touchesInBox": 28.7
+    },
+    "defensive": {
+      "goalsAgainstPerMatch": 0.9,
+      "xGAgainstPerMatch": 1.05,
+      "cleanSheetPercentage": 50.0,
+      "tacklesPerMatch": 18.4,
+      "interceptionPerMatch": 9.7,
+      "clearancesPerMatch": 15.2,
+      "defensiveLineHeight": 72,
+      "pressingIntensity": 92,
+      "challengesWonPercentage": 63.1,
+      "aerialDuelsWonPercentage": 59.2,
+      "defensiveActionsPerMatch": 62.4,
+      "opponentPassCompletionAllowed": 75.6,
+      "defensiveRecoveryTime": 4.3
+    },
+    "tempo": {
+      "directPlayIndex": 54,
+      "averagePossessionDuration": 18.7,
+      "transitionSpeedAttacking": 5.6,
+      "transitionSpeedDefensive": 3.9,
+      "counterPressAfterLoss": 91,
+      "verticalityIndex": 60.5,
+      "passesPerOffensiveAction": 5.2,
+      "progressiveCarriesPerMatch": 29.8,
+      "gameStateAdaptability": {
+        "winningStyle": 48,
+        "drawingStyle": 67,
+        "losingStyle": 88
+      }
+    },
+    "playStyleCategories": {
+      "possessionDominance": 78,
+      "pressingIntensity": 94,
+      "buildUpSpeed": 62,
+      "defensiveCompactness": 78,
+      "attackingDirectness": 58,
+      "widthOfPlay": 72,
+      "counterAttackThreat": 78,
+      "setPlayThreat": 65,
+      "primaryPlayStyle": "HIGH_PRESSING",
+      "secondaryPlayStyle": "COUNTER_ATTACKING"
+    }
+  }
+]
