@@ -32,24 +32,6 @@ export interface ChartContainerProps {
   onRefresh?: () => void;
   
   /**
-   * Available chart types to toggle between
-   */
-  availableTypes?: {
-    value: string;
-    label: string;
-  }[];
-  
-  /**
-   * Current chart type
-   */
-  currentType?: string;
-  
-  /**
-   * Function to handle chart type change
-   */
-  onTypeChange?: (type: string) => void;
-  
-  /**
    * Class name for the container
    */
   className?: string;
@@ -68,16 +50,6 @@ export interface ChartContainerProps {
    * Whether to show a border
    */
   bordered?: boolean;
-  
-  /**
-   * Whether to show a download option
-   */
-  allowDownload?: boolean;
-  
-  /**
-   * Function to handle download
-   */
-  onDownload?: () => void;
 }
 
 /**
@@ -90,15 +62,10 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
   loading = false,
   error = null,
   onRefresh,
-  availableTypes,
-  currentType,
-  onTypeChange,
   className = '',
   infoTooltip,
   minHeight = 400,
   bordered = true,
-  allowDownload = false,
-  onDownload,
 }) => {
   const [showInfoTooltip, setShowInfoTooltip] = useState(false);
   
@@ -137,7 +104,7 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
   
   return (
     <div 
-      className={`bg-white ${bordered ? 'border border-gray-200 shadow-sm' : ''} rounded-lg ${className}`}
+      className={`${bordered ? 'border border-gray-200 shadow-sm' : ''} bg-white rounded-lg ${className}`}
       style={{ minHeight }}
     >
       {/* Chart Header */}
@@ -176,59 +143,19 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
           )}
         </div>
         
-        <div className="flex items-center space-x-2">
-          {/* Chart type selector */}
-          {availableTypes && availableTypes.length > 0 && onTypeChange && (
-            <div className="flex rounded-md shadow-sm">
-              {availableTypes.map((type) => (
-                <button
-                  key={type.value}
-                  type="button"
-                  className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium ${
-                    currentType === type.value
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50'
-                  } border border-gray-300 focus:z-10 focus:outline-none focus:ring-1 focus:ring-primary-500 ${
-                    type.value === availableTypes[0].value ? 'rounded-l-md' : ''
-                  } ${
-                    type.value === availableTypes[availableTypes.length - 1].value ? 'rounded-r-md' : ''
-                  }`}
-                  onClick={() => onTypeChange(type.value)}
-                >
-                  {type.label}
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {/* Download button */}
-          {allowDownload && onDownload && (
-            <button
-              type="button"
-              onClick={onDownload}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-            >
-              <svg className="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download
-            </button>
-          )}
-          
-          {/* Refresh button */}
-          {onRefresh && (
-            <button
-              type="button"
-              onClick={onRefresh}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-            >
-              <svg className="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              Refresh
-            </button>
-          )}
-        </div>
+        {/* Refresh button */}
+        {onRefresh && (
+          <button
+            type="button"
+            onClick={onRefresh}
+            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          >
+            <svg className="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh
+          </button>
+        )}
       </div>
       
       {/* Chart Body */}

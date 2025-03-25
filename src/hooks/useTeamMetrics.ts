@@ -1,119 +1,75 @@
-/**
- * Hook for accessing and filtering team metrics data
- */
-
-import { useState, useMemo } from 'react';
-import { 
-  TeamId, 
-  MatchResult, 
-  TeamMetricsData, 
-  TeamBasicInfo,
-  getTeamData, 
-  getTeamInfo
-} from '../services/mock-data';
-import { MetricId, getMetricsByCategory, getMetricsByIds } from '../config/metrics';
-
-type UseTeamMetricsProps = {
-  teamId: TeamId;
-  defaultResult?: MatchResult;
-};
-
-type UseTeamMetricsReturn = {
-  teamInfo: TeamBasicInfo | null;
-  metricsData: TeamMetricsData | null;
-  selectedResult: MatchResult;
-  setSelectedResult: (result: MatchResult) => void;
-  getMetricValue: (metricId: MetricId) => number | null;
-  getMetricPercentile: (metricId: MetricId) => number | null;
-  getCategoryMetrics: (categoryId: string) => Array<{
-    metricId: MetricId;
-    value: number;
-    percentile: number | undefined;
-  }>;
-  getMetricsSubset: (metricIds: MetricId[]) => Array<{
-    metricId: MetricId;
-    value: number;
-    percentile: number | undefined;
-  }>;
-  isLoading: boolean;
-  error: Error | null;
-};
+import { useState, useEffect } from 'react';
+import metricsService from '@/services/metrics-service';
+import type { TeamMetrics } from '@/types';
 
 /**
- * Hook for accessing and filtering team metrics data
+ * Hook for fetching and managing team metrics data
+ * @param teamId Team ID to fetch metrics for
+ * @param seasonId Optional season ID
  */
-export default function useTeamMetrics({
-  teamId,
-  defaultResult = 'all'
-}: UseTeamMetricsProps): UseTeamMetricsReturn {
-  const [selectedResult, setSelectedResult] = useState<MatchResult>(defaultResult);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export function useTeamMetrics(teamId: string | undefined, seasonId?: string) {
+  const [metrics, setMetrics] = useState<TeamMetrics | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Ensure teamId is a string
-  const safeTeamId = typeof teamId === 'string' ? teamId : '';
-
-  // Fetch team data and info
-  const teamData = useMemo(() => getTeamData(safeTeamId), [safeTeamId]);
-  const teamInfo = useMemo(() => getTeamInfo(safeTeamId), [safeTeamId]);
-  
-  // Debug log to help trace issues
-  console.log("useTeamMetrics - teamId:", safeTeamId, "teamData:", teamData, "teamInfo:", teamInfo);
-  
-  // Get current metrics data based on selected result
-  const metricsData = useMemo(() => {
-    if (!teamData) return null;
-    return teamData[selectedResult];
-  }, [teamData, selectedResult]);
-
-  // Helper function to get a specific metric value
-  const getMetricValue = (metricId: MetricId): number | null => {
-    if (!metricsData || !metricsData.metrics[metricId]) return null;
-    return metricsData.metrics[metricId].value;
-  };
-
-  // Helper function to get a specific metric percentile
-  const getMetricPercentile = (metricId: MetricId): number | null => {
-    if (!metricsData || !metricsData.metrics[metricId] || 
-        metricsData.metrics[metricId].percentile === undefined) {
-      return null;
+  useEffect(() => {
+    // Reset state when parameters change
+    setMetrics(null);
+    setError(null);
+    
+    // Don't fetch if no team ID is provided
+    if (!teamId) {
+      setLoading(false);
+      return;
     }
-    return metricsData.metrics[metricId].percentile;
-  };
-
-  // Helper function to get metrics for a category
-  const getCategoryMetrics = (categoryId: string) => {
-    if (!metricsData) return [];
     
-    const categoryMetrics = getMetricsByCategory(categoryId);
-    return categoryMetrics.map(metric => ({
-      metricId: metric.id,
-      value: metricsData.metrics[metric.id]?.value || 0,
-      percentile: metricsData.metrics[metric.id]?.percentile
-    }));
-  };
-
-  // Helper function to get a subset of metrics by IDs
-  const getMetricsSubset = (metricIds: MetricId[]) => {
-    if (!metricsData) return [];
+    // Set loading state
+    setLoading(true);
     
-    return metricIds.map(metricId => ({
-      metricId,
-      value: metricsData.metrics[metricId]?.value || 0,
-      percentile: metricsData.metrics[metricId]?.percentile
-    }));
+    // Fetch team metrics
+    const fetchTeamMetrics = async () => {
+      try {
+        const teamMetrics = await metricsService.getTeamMetrics(teamId, seasonId);
+        setMetrics(teamMetrics);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching team metrics:', err);
+        setError(err instanceof Error ? err : new Error('Failed to fetch team metrics'));
+        setLoading(false);
+      }
+    };
+    
+    fetchTeamMetrics();
+  }, [teamId, seasonId]);
+  
+  /**
+   * Manually refresh the team metrics
+   */
+  const refreshMetrics = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      if (!teamId) {
+        throw new Error('Team ID is required to refresh team metrics');
+      }
+      
+      const teamMetrics = await metricsService.getTeamMetrics(teamId, seasonId);
+      setMetrics(teamMetrics);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error refreshing team metrics:', err);
+      setError(err instanceof Error ? err : new Error('Failed to refresh team metrics'));
+      setLoading(false);
+    }
   };
-
+  
   return {
-    teamInfo,
-    metricsData,
-    selectedResult,
-    setSelectedResult,
-    getMetricValue,
-    getMetricPercentile,
-    getCategoryMetrics,
-    getMetricsSubset,
-    isLoading,
-    error
+    metrics,
+    loading,
+    error,
+    refreshMetrics
   };
 }
+
+export default useTeamMetrics;

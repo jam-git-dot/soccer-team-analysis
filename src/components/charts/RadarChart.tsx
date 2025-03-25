@@ -31,11 +31,6 @@ export interface RadarChartProps {
   }[];
   
   /**
-   * Name key for the categories (points on the radar)
-   */
-  nameKey?: string;
-  
-  /**
    * Domain for the radius axis
    */
   radiusAxisDomain?: [number, number];
@@ -44,11 +39,6 @@ export interface RadarChartProps {
    * Custom formatter for the tooltip
    */
   tooltipFormatter?: (value: any, name: string, props: any) => [string, string];
-  
-  /**
-   * Custom tooltip component
-   */
-  CustomTooltip?: React.FC<TooltipProps<ValueType, NameType>>;
   
   /**
    * Whether to show the legend
@@ -76,11 +66,6 @@ export interface RadarChartProps {
   className?: string;
   
   /**
-   * Custom tick formatter for the angle axis
-   */
-  angleAxisTickFormatter?: (value: string) => string;
-  
-  /**
    * Custom tick formatter for the radius axis
    */
   radiusAxisTickFormatter?: (value: number) => string;
@@ -93,25 +78,15 @@ export interface RadarChartProps {
 const RadarChart: React.FC<RadarChartProps> = ({
   data,
   dataKeys,
-  nameKey = 'name',
   radiusAxisDomain = [0, 100],
   tooltipFormatter,
-  CustomTooltip,
   showLegend = true,
   showOuterGrid = true,
   height = 400,
   width = '100%',
   className = '',
-  angleAxisTickFormatter,
   radiusAxisTickFormatter,
 }) => {
-  // Use either the custom tooltip component or the default one
-  const tooltipContent = CustomTooltip ? (
-    <Tooltip content={<CustomTooltip />} />
-  ) : (
-    <Tooltip formatter={tooltipFormatter} />
-  );
-  
   return (
     <div className={`w-full ${className}`}>
       <ResponsiveContainer width={width} height={height}>
@@ -128,10 +103,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
           <PolarGrid gridType={showOuterGrid ? "circle" : "polygon"} />
           
           {/* The categories around the perimeter */}
-          <PolarAngleAxis
-            dataKey={nameKey}
-            tickFormatter={angleAxisTickFormatter}
-          />
+          <PolarAngleAxis dataKey="name" />
           
           {/* The scale from center to edge */}
           <PolarRadiusAxis
@@ -141,7 +113,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
           />
           
           {/* Show tooltips on hover */}
-          {tooltipContent}
+          <Tooltip formatter={tooltipFormatter} />
           
           {/* Add legend if enabled */}
           {showLegend && <Legend />}
