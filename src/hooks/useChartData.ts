@@ -234,10 +234,30 @@ function assignMetricPositions(categorizedMetrics: Record<string, MetricId[]>): 
     const [startAngle, endAngle] = categoryInfo.angleRange;
     const metricCount = metricIds.length;
     
+    // Calculate mid-point of the category's angle range
+    const midAngle = (startAngle + endAngle) / 2;
+    
+    // Calculate the total angle span
+    const angleSpan = endAngle - startAngle;
+    
     // Calculate angles for each metric in this category
     metricIds.forEach((metricId, index) => {
-      // Distribute metrics evenly within the category's angle range
-      const angle = startAngle + ((endAngle - startAngle) * (index / (metricCount - 1 || 1)));
+      // For single metrics, put at the center
+      if (metricCount === 1) {
+        result.push({
+          metricId,
+          category,
+          angle: midAngle
+        });
+        return;
+      }
+      
+      // For multiple metrics, distribute evenly around the mid-point
+      // Calculate fraction position from middle (-0.5 to 0.5 for total range)
+      let fraction = (index / (metricCount - 1)) - 0.5;
+      
+      // Calculate angle by scaling the fraction to the angle span
+      const angle = midAngle + (fraction * angleSpan);
       
       result.push({
         metricId,

@@ -7,11 +7,8 @@ import {
   PolarRadiusAxis,
   Legend,
   ResponsiveContainer,
-  Tooltip,
-  TooltipProps,
-  Dot
+  Tooltip
 } from 'recharts';
-import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 
 export interface RadarChartProps {
   /**
@@ -129,69 +126,6 @@ const CustomDot = (props: any) => {
 };
 
 /**
- * Custom label component for radar chart
- */
-const CustomLabel = (props: any) => {
-  const { 
-    viewBox, 
-    value, 
-    index, 
-    payload, 
-    className = '', 
-    colorMap
-  } = props;
-  
-  const { cx, cy } = viewBox;
-  if (!payload) return null;
-  
-  // Get text alignment based on position
-  // We need to position text differently based on the angle to avoid overlapping
-  const angle = (index / props.dataLength) * 360;
-  let textAnchor = 'middle';
-  let dx = 0;
-  let dy = 0;
-  
-  if (angle <= 45 || angle > 315) {
-    // Top
-    textAnchor = 'middle';
-    dy = -10;
-  } else if (angle > 45 && angle <= 135) {
-    // Right
-    textAnchor = 'start';
-    dx = 10;
-  } else if (angle > 135 && angle <= 225) {
-    // Bottom
-    textAnchor = 'middle';
-    dy = 15;
-  } else if (angle > 225 && angle <= 315) {
-    // Left
-    textAnchor = 'end';
-    dx = -10;
-  }
-  
-  // Get color based on category
-  let color = '#666';
-  if (colorMap && payload.category && colorMap[payload.category]) {
-    color = colorMap[payload.category].color;
-  }
-  
-  return (
-    <text
-      x={cx}
-      y={cy}
-      dx={dx}
-      dy={dy}
-      textAnchor={textAnchor}
-      fill={color}
-      className={className}
-      fontSize={12}
-    >
-      {value}
-    </text>
-  );
-};
-
-/**
  * Reusable radar chart component based on Recharts
  * Perfect for visualizing play style metrics across multiple categories
  */
@@ -210,50 +144,95 @@ const RadarChart: React.FC<RadarChartProps> = ({
   dotSize = 5,
   gridCount = 5,
   colorMap = {},
-  showLabels = false,
+  showLabels = true,
   labelClass = '',
   connectNulls = true,
 }) => {
+  // Apply category colors to data points
+  const colorizedData = data.map(item => {
+    // Get color based on category
+    const category = item.category;
+    let color = '#666';
+    if (colorMap && category && colorMap[category]) {
+      color = colorMap[category].color;
+    }
+    
+    return {
+      ...item,
+      color
+    };
+  });
+  
+  // Custom renderer for PolarAngleAxis ticks
+  const renderCustomAxisTick = (props: any) => {
+    const { x, y, cx, cy, payload } = props;
+    
+    // Find the matching data item by name
+    const dataItem = colorizedData.find(item => item.name === payload.value);
+    if (!dataItem) return null;
+    
+    // Calculate the angle and radius for positioning
+    const radius = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy)) * 1.15;
+    const angle = Math.atan2(y - cy, x - cx);
+    
+    // Calculate the position with adjusted radius
+    const nx = cx + radius * Math.cos(angle);
+    const ny = cy + radius * Math.sin(angle);
+    
+    // Determine text anchor based on angle
+    let textAnchor = 'middle';
+    const angleDeg = angle * (180 / Math.PI);
+    
+    if (angleDeg > -45 && angleDeg < 45) {
+      textAnchor = 'start';  // Right side
+    } else if (angleDeg > 135 || angleDeg < -135) {
+      textAnchor = 'end';    // Left side
+    }
+    
+    return (
+      <g>
+        <text
+          x={nx}
+          y={ny}
+          textAnchor={textAnchor}
+          dominantBaseline="central"
+          fill={dataItem.color}
+          className={labelClass}
+          style={{ fontSize: '12px', fontWeight: '500' }}
+        >
+          {payload.value}
+        </text>
+      </g>
+    );
+  };
+  
   return (
     <div className={`w-full ${className}`}>
       <ResponsiveContainer width={width} height={height}>
         <RechartsRadarChart
-          data={data}
+          data={colorizedData}
           margin={{
-            top: 30,
-            right: 30,
-            left: 30,
-            bottom: 30,
+            top: 50,
+            right: 50,
+            left: 50,
+            bottom: 50,
           }}
         >
           {/* Show grid circles from center to outer edge */}
-          <PolarGrid gridType={showOuterGrid ? "circle" : "polygon"} radialLines={true} gridCount={gridCount} />
-          
-          {/* The categories around the perimeter */}
-          <PolarAngleAxis 
-            dataKey="name" 
-            tick={false} // We'll use custom labels
-            tickLine={false}
+          <PolarGrid 
+            gridType={showOuterGrid ? "circle" : "polygon"} 
+            radialLines={true} 
+            gridCount={gridCount} 
           />
           
-          {/* Custom labels for metrics */}
-          {showLabels && data.map((entry, index) => (
-            <text
-              key={`label-${index}`}
-              x={0}
-              y={0}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              className={labelClass}
-              style={{
-                transform: `translate(${Math.cos(((index / data.length) * 2 * Math.PI) - Math.PI/2) * (height/2 - 30) + height/2}px, ${Math.sin(((index / data.length) * 2 * Math.PI) - Math.PI/2) * (height/2 - 30) + height/2}px)`,
-                fill: entry.color || '#666',
-                fontSize: '12px'
-              }}
-            >
-              {entry.name}
-            </text>
-          ))}
+          {/* Category labels around the perimeter */}
+          {showLabels && (
+            <PolarAngleAxis 
+              dataKey="name"
+              tick={renderCustomAxisTick}
+              tickLine={false}
+            />
+          )}
           
           {/* The scale from center to edge */}
           <PolarRadiusAxis 
@@ -281,7 +260,10 @@ const RadarChart: React.FC<RadarChartProps> = ({
               fill={dataKey.color}
               fillOpacity={dataKey.fillOpacity || 0.6}
               connectNulls={connectNulls}
-              dot={colorByPoint ? (props) => <CustomDot {...props} size={dotSize} /> : { r: dotSize }}
+              dot={colorByPoint ? 
+                (props) => <CustomDot {...props} size={dotSize} /> : 
+                { r: dotSize, fill: '#fff', stroke: dataKey.color }
+              }
               activeDot={{ r: dotSize * 1.5, fill: '#fff', stroke: dataKey.color, strokeWidth: 2 }}
             />
           ))}

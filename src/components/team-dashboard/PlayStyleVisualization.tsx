@@ -69,7 +69,7 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   // Get current season from metrics data
   const season = metrics?.seasonId?.split('-').slice(-2).join('-') || '2023-2024';
   
-  // Custom tooltip formatter - show raw value first, then percentile
+  // Custom tooltip formatter - show category at top, metric value with units and context
   const tooltipFormatter = (value: number, name: string, props: any) => {
     // Get the data item for this tooltip
     const item = radarData.find(d => d.name === props.payload.name);
@@ -79,18 +79,26 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
     const metric = item.metricId ? METRICS[item.metricId as MetricId] : null;
     let formattedValue = item.originalValue.toFixed(1);
     
-    // Add unit if applicable
+    // Format with appropriate units
+    let unitLabel = '';
     if (metric?.unit === 'percentage') {
       formattedValue += '%';
+      unitLabel = '(Percentage)';
     } else if (metric?.unit === 'seconds') {
       formattedValue += ' sec';
+      unitLabel = '(Seconds)';
+    } else if (metric?.unit === 'count') {
+      unitLabel = '(Per 90)';
+    } else if (metric?.unit === 'index') {
+      unitLabel = '(Index 0-100)';
     }
     
     // Get league context description
     const leagueContext = item.leagueContext || '';
     
-    // Return raw value first, then percentile with context
-    return [`${formattedValue} (${item.percentile?.toFixed(0) || '--'}% - ${leagueContext})`, item.name];
+    // Return value with units and percentile context, and use category as the name
+    return [`${formattedValue} ${unitLabel} (${item.percentile?.toFixed(0) || '--'}% - ${leagueContext})`, 
+            item.category.charAt(0).toUpperCase() + item.category.slice(1)];
   };
 
   // Handle configuration change
