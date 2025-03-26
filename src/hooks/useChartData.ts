@@ -3,23 +3,51 @@ import { TeamMetrics } from '@/types';
 import { MetricId, METRICS, normalizeMetricValue } from '@/config/metrics';
 import { ChartConfig, getDefaultRadarConfig } from '@/config/chart-configs';
 
+// Define metric category positions and colors
+export const METRIC_CATEGORIES = {
+  attacking: {
+    position: 'top',
+    color: '#EF4444', // Red
+    angleRange: [-45, 45] // Centered at top (0 degrees)
+  },
+  possession: {
+    position: 'left',
+    color: '#10B981', // Green
+    angleRange: [45, 135] // Centered at left (90 degrees)
+  },
+  defensive: {
+    position: 'bottom',
+    color: '#3B82F6', // Blue
+    angleRange: [135, 225] // Centered at bottom (180 degrees)
+  },
+  tempo: {
+    position: 'right',
+    color: '#F59E0B', // Amber/yellow
+    angleRange: [225, 315] // Centered at right (270 degrees)
+  }
+};
+
 interface ChartDataEntry extends Record<string, any> {
   name: string;
   category: string;
   value: number;
   originalValue: number;
   metricId: string;
+  angle?: number; // For positioning metrics
+  color?: string; // For color coding
 }
 
 /**
  * Custom hook to transform team metrics into radar chart data
  * @param metrics Team metrics object
  * @param config Chart configuration (optional, uses default if not provided)
+ * @param usePercentiles Whether to use percentiles instead of normalized values (defaults to true)
  * @returns Array of data points for the radar chart
  */
 export function useTeamMetricsRadarData(
   metrics: TeamMetrics | null,
-  config?: ChartConfig
+  config?: ChartConfig,
+  usePercentiles: boolean = true
 ): ChartDataEntry[] {
   return useMemo(() => {
     if (!metrics) {
@@ -31,84 +59,144 @@ export function useTeamMetricsRadarData(
     const chartConfig = config || getDefaultRadarConfig();
     console.log('Using chart config:', chartConfig.name);
     
+    // Organize metrics by category
+    const categorizedMetrics: Record<string, MetricId[]> = {};
+    Object.entries(chartConfig.metrics).forEach(([category, metricIds]) => {
+      categorizedMetrics[category] = metricIds;
+    });
+    
+    // Calculate angles for each metric to ensure proper positioning
+    const organizedMetrics = assignMetricPositions(categorizedMetrics);
+    
     // Create radar chart data
     const radarData: ChartDataEntry[] = [];
     
-    // Process each category in the config
-    Object.entries(chartConfig.metrics).forEach(([category, metricIds]) => {
+    // Process each metric with its assigned position
+    organizedMetrics.forEach((metricInfo) => {
+      const { metricId, category, angle } = metricInfo;
+      
       if (!(category in metrics)) {
         console.log(`Category ${category} not found in metrics data`);
         return;
       }
       
       const categoryMetrics = metrics[category as keyof TeamMetrics];
+      const metric = METRICS[metricId];
       
-      // Process each metric ID in this category
-      metricIds.forEach(metricId => {
-        const metric = METRICS[metricId];
-        if (!metric) {
-          console.log(`Metric ${metricId} not found in METRICS dictionary`);
-          return;
+      if (!metric) {
+        console.log(`Metric ${metricId} not found in METRICS dictionary. Available metrics: ${Object.keys(METRICS).join(', ')}`);
+        return;
+      }
+      
+      // Extract path to the value based on the metric ID
+      const pathParts = metricId.split('_');
+      let value: number | undefined;
+      let percentile: number | undefined;
+      
+      try {
+        // Get the property path for this metric
+        const propertyPath = getMetricPropertyPath(metricId, category);
+        
+        // Try to navigate the object path to find the value
+        let obj = categoryMetrics as any;
+        for (const part of propertyPath) {
+          if (obj && typeof obj === 'object' && part in obj) {
+            obj = obj[part];
+          } else {
+            // If the path doesn't exist, try alternative approaches
+            obj = undefined;
+            break;
+          }
         }
         
-        // Extract path to the value based on the metric ID
-        // This assumes metric IDs follow a convention that matches the object structure
-        const pathParts = metricId.split('_');
-        let value: number | undefined;
-        
-        try {
-          // Try to navigate the object path to find the value
-          let obj = categoryMetrics as any;
+        // If we couldn't find it with the property path, try the original paths
+        if (obj === undefined) {
+          // Try with original path parts
+          obj = categoryMetrics as any;
           for (const part of pathParts) {
             if (obj && typeof obj === 'object' && part in obj) {
               obj = obj[part];
             } else {
-              // If path doesn't exist, try the original metric ID
               obj = undefined;
               break;
             }
           }
-          
-          // If we couldn't find it with the path, try the direct property
-          if (obj === undefined && metricId in categoryMetrics) {
-            obj = categoryMetrics[metricId as keyof typeof categoryMetrics];
-          }
-          
-          // If we still don't have it, try with camelCase version (for legacy support)
-          if (obj === undefined) {
-            const camelCaseKey = toCamelCase(metricId);
-            if (camelCaseKey in categoryMetrics) {
-              obj = categoryMetrics[camelCaseKey as keyof typeof categoryMetrics];
-            }
-          }
-          
-          // Only use the value if it's a number
-          if (typeof obj === 'number') {
-            value = obj;
-          }
-        } catch (err) {
-          console.error(`Error accessing metric ${metricId}:`, err);
         }
         
-        // Only add the datapoint if we found a numeric value
-        if (value !== undefined) {
-          // Normalize the value for the chart
-          const normalizedValue = normalizeMetricValue(metricId, value);
-          
-          // Create the data entry for the radar chart
-          const dataEntry: ChartDataEntry = {
-            name: metric.name,
-            category: category,
-            metricId: metricId,
-            originalValue: value,
-            value: normalizedValue,
-            // Add team name as the key for the RadarChart component
-            teamName: normalizedValue,
-          };
-          
-          radarData.push(dataEntry);
+        // If we still couldn't find it, try the direct property
+        if (obj === undefined && metricId in categoryMetrics) {
+          obj = categoryMetrics[metricId as keyof typeof categoryMetrics];
         }
-      });
+        
+        // If we still don't have it, try with camelCase version (for legacy support)
+        if (obj === undefined) {
+          const camelCaseKey = toCamelCase(metricId);
+          if (camelCaseKey in categoryMetrics) {
+            obj = categoryMetrics[camelCaseKey as keyof typeof categoryMetrics];
+          }
+        }
+        
+        // Only use the value if it's a number
+        if (typeof obj === 'number') {
+          value = obj;
+        }
+        
+        // Log debug info for missing metrics
+        if (value === undefined) {
+          console.log(`Could not find value for metric ${metricId} in category ${category}`);
+        }
+        
+        // Look for percentile data - first in playStyleCategories
+        if (metrics.playStyleCategories) {
+          const camelCaseKey = toCamelCase(metricId);
+          if (camelCaseKey in metrics.playStyleCategories) {
+            percentile = metrics.playStyleCategories[camelCaseKey as keyof typeof metrics.playStyleCategories] as number;
+          }
+        }
+        
+        // If we don't have percentile from playStyleCategories, generate one
+        if (percentile === undefined && value !== undefined) {
+          // For now, use a simple normalization as our percentile
+          // In a real implementation, this would come from the backend
+          percentile = normalizeMetricValue(metricId, value);
+          
+          // Ensure percentile is between 0-100
+          percentile = Math.max(0, Math.min(100, percentile));
+        }
+      } catch (err) {
+        console.error(`Error accessing metric ${metricId}:`, err);
+      }
+      
+      // Only add the datapoint if we found a numeric value
+      if (value !== undefined) {
+        // Use either percentile (if available and requested) or normalized value
+        const displayValue = (usePercentiles && percentile !== undefined) 
+          ? percentile 
+          : normalizeMetricValue(metricId, value);
+        
+        // Get category color
+        const categoryInfo = METRIC_CATEGORIES[category as keyof typeof METRIC_CATEGORIES];
+        const categoryColor = categoryInfo?.color || '#94A3B8';
+        
+        // Create the data entry for the radar chart
+        const dataEntry: ChartDataEntry = {
+          name: metric.name,
+          category: category,
+          metricId: metricId,
+          originalValue: value,
+          value: displayValue,
+          percentile: percentile,
+          // Add team name as the key for the RadarChart component
+          teamName: displayValue,
+          // Add league rank info
+          leagueContext: getLeagueContextDescription(percentile || 50),
+          // Add position and color information
+          angle: angle,
+          color: categoryColor
+        };
+        
+        radarData.push(dataEntry);
+      }
     });
     
     if (radarData.length === 0) {
@@ -117,8 +205,114 @@ export function useTeamMetricsRadarData(
       console.log(`Generated ${radarData.length} radar data points`);
     }
     
-    return radarData;
-  }, [metrics, config]);
+    // Sort by angle for consistent presentation
+    return radarData.sort((a, b) => (a.angle || 0) - (b.angle || 0));
+  }, [metrics, config, usePercentiles]);
+}
+
+/**
+ * Organize metrics by category and assign positions within each category
+ * @param categorizedMetrics Metrics grouped by category
+ * @returns Array of metrics with assigned positions
+ */
+function assignMetricPositions(categorizedMetrics: Record<string, MetricId[]>): Array<{
+  metricId: MetricId,
+  category: string,
+  angle: number
+}> {
+  const result: Array<{
+    metricId: MetricId,
+    category: string,
+    angle: number
+  }> = [];
+  
+  // Process each category
+  Object.entries(categorizedMetrics).forEach(([category, metricIds]) => {
+    const categoryInfo = METRIC_CATEGORIES[category as keyof typeof METRIC_CATEGORIES];
+    if (!categoryInfo) return;
+    
+    const [startAngle, endAngle] = categoryInfo.angleRange;
+    const metricCount = metricIds.length;
+    
+    // Calculate angles for each metric in this category
+    metricIds.forEach((metricId, index) => {
+      // Distribute metrics evenly within the category's angle range
+      const angle = startAngle + ((endAngle - startAngle) * (index / (metricCount - 1 || 1)));
+      
+      result.push({
+        metricId,
+        category,
+        angle
+      });
+    });
+  });
+  
+  return result;
+}
+
+/**
+ * Get a text description of where a percentile ranks in the league
+ * @param percentile Percentile value (0-100)
+ * @returns Text description of the league ranking
+ */
+function getLeagueContextDescription(percentile: number): string {
+  if (percentile >= 90) return 'Top 10%';
+  if (percentile >= 80) return 'Top 20%';
+  if (percentile >= 70) return 'Top 30%';
+  if (percentile >= 60) return 'Above Average';
+  if (percentile >= 40) return 'Average';
+  if (percentile >= 30) return 'Below Average';
+  if (percentile >= 20) return 'Bottom 30%';
+  if (percentile >= 10) return 'Bottom 20%';
+  return 'Bottom 10%';
+}
+
+/**
+ * Helper function to convert snake_case to camelCase
+ */
+function toCamelCase(str: string): string {
+  return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+/**
+ * Helper function to map a metric ID to the corresponding property in our data structure
+ * This handles the mismatch between our metric IDs (snake_case) and our data structure (camelCase)
+ */
+function getMetricPropertyPath(metricId: string, category: string): string[] {
+  // Map of special cases where the property path doesn't match the metric ID convention
+  const specialCaseMap: Record<string, string[]> = {
+    'possession_percentage': ['possessionPercentage'],
+    'pass_completion': ['passCompletionRate'],
+    'progressive_passes': ['progressivePassesPerMatch'],
+    'build_up_time': ['averageBuildUpTime'],
+    'field_tilt_percentage': ['fieldTiltPercentage'],
+    'expected_goals': ['xGPerMatch'],
+    'shot_accuracy': ['shotsOnTargetPerMatch'], // Approximation
+    'counter_attack_frequency': ['counterAttackGoalsPercentage'],
+    'set_piece_dependency': ['setPieceGoalsPercentage'],
+    'shots_per_match': ['shotsPerMatch'],
+    'big_chances_created': ['bigChancesCreatedPerMatch'],
+    'defensive_line_height': ['defensiveLineHeight'],
+    'pressing_intensity': ['pressingIntensity'],
+    'recovery_time': ['defensiveRecoveryTime'],
+    'defensive_duels_won': ['challengesWonPercentage'],
+    'clean_sheet_percentage': ['cleanSheetPercentage'],
+    'tackles_per_match': ['tacklesPerMatch'],
+    'direct_play_vs_possession': ['directPlayIndex'],
+    'transition_speed': ['transitionSpeedAttacking'],
+    'counter_press_after_loss': ['counterPressAfterLoss'],
+    'verticality_index': ['verticalityIndex'],
+    'progressive_carries': ['progressiveCarriesPerMatch'],
+    'game_state_adaptability': ['gameStateAdaptability', 'drawingStyle'] // Example - could be any of the game state metrics
+  };
+  
+  // Check if we have a special case mapping for this metric
+  if (metricId in specialCaseMap) {
+    return specialCaseMap[metricId];
+  }
+  
+  // Otherwise, convert to camelCase and return as single path element
+  return [toCamelCase(metricId)];
 }
 
 /**
@@ -163,13 +357,6 @@ export function useMetricsByResultBarData(
     
     return data;
   }, [metricsByResult, metricKey]);
-}
-
-/**
- * Helper function to convert snake_case to camelCase
- */
-function toCamelCase(str: string): string {
-  return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
 /**
@@ -259,5 +446,6 @@ export default {
   useTeamMetricsRadarData,
   useMetricsByResultBarData,
   useComparativeMetricsBarData,
-  useMatchMetricsLineData
+  useMatchMetricsLineData,
+  METRIC_CATEGORIES
 };

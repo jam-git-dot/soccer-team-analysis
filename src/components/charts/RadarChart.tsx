@@ -8,7 +8,8 @@ import {
   Legend,
   ResponsiveContainer,
   Tooltip,
-  TooltipProps
+  TooltipProps,
+  Dot
 } from 'recharts';
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 
@@ -69,7 +70,126 @@ export interface RadarChartProps {
    * Custom tick formatter for the radius axis
    */
   radiusAxisTickFormatter?: (value: number) => string;
+  
+  /**
+   * Whether to color points by categories
+   */
+  colorByPoint?: boolean;
+  
+  /**
+   * Size of the dots
+   */
+  dotSize?: number;
+  
+  /**
+   * Number of grid circles
+   */
+  gridCount?: number;
+  
+  /**
+   * Map of categories to colors
+   */
+  colorMap?: Record<string, any>;
+  
+  /**
+   * Whether to show labels
+   */
+  showLabels?: boolean;
+  
+  /**
+   * CSS class for labels
+   */
+  labelClass?: string;
+  
+  /**
+   * Whether to connect null values
+   */
+  connectNulls?: boolean;
 }
+
+/**
+ * Custom dot component for radar chart
+ */
+const CustomDot = (props: any) => {
+  const { cx, cy, payload, color, size = 5 } = props;
+  
+  // Use point color if available, otherwise use default
+  const dotColor = payload?.color || color || '#8884d8';
+  
+  return (
+    <circle 
+      cx={cx} 
+      cy={cy} 
+      r={size} 
+      fill={dotColor}
+      stroke="#fff"
+      strokeWidth={1}
+    />
+  );
+};
+
+/**
+ * Custom label component for radar chart
+ */
+const CustomLabel = (props: any) => {
+  const { 
+    viewBox, 
+    value, 
+    index, 
+    payload, 
+    className = '', 
+    colorMap
+  } = props;
+  
+  const { cx, cy } = viewBox;
+  if (!payload) return null;
+  
+  // Get text alignment based on position
+  // We need to position text differently based on the angle to avoid overlapping
+  const angle = (index / props.dataLength) * 360;
+  let textAnchor = 'middle';
+  let dx = 0;
+  let dy = 0;
+  
+  if (angle <= 45 || angle > 315) {
+    // Top
+    textAnchor = 'middle';
+    dy = -10;
+  } else if (angle > 45 && angle <= 135) {
+    // Right
+    textAnchor = 'start';
+    dx = 10;
+  } else if (angle > 135 && angle <= 225) {
+    // Bottom
+    textAnchor = 'middle';
+    dy = 15;
+  } else if (angle > 225 && angle <= 315) {
+    // Left
+    textAnchor = 'end';
+    dx = -10;
+  }
+  
+  // Get color based on category
+  let color = '#666';
+  if (colorMap && payload.category && colorMap[payload.category]) {
+    color = colorMap[payload.category].color;
+  }
+  
+  return (
+    <text
+      x={cx}
+      y={cy}
+      dx={dx}
+      dy={dy}
+      textAnchor={textAnchor}
+      fill={color}
+      className={className}
+      fontSize={12}
+    >
+      {value}
+    </text>
+  );
+};
 
 /**
  * Reusable radar chart component based on Recharts
@@ -86,6 +206,13 @@ const RadarChart: React.FC<RadarChartProps> = ({
   width = '100%',
   className = '',
   radiusAxisTickFormatter,
+  colorByPoint = false,
+  dotSize = 5,
+  gridCount = 5,
+  colorMap = {},
+  showLabels = false,
+  labelClass = '',
+  connectNulls = true,
 }) => {
   return (
     <div className={`w-full ${className}`}>
@@ -93,22 +220,48 @@ const RadarChart: React.FC<RadarChartProps> = ({
         <RechartsRadarChart
           data={data}
           margin={{
-            top: 20,
+            top: 30,
             right: 30,
-            left: 20,
-            bottom: 20,
+            left: 30,
+            bottom: 30,
           }}
         >
           {/* Show grid circles from center to outer edge */}
-          <PolarGrid gridType={showOuterGrid ? "circle" : "polygon"} />
+          <PolarGrid gridType={showOuterGrid ? "circle" : "polygon"} radialLines={true} gridCount={gridCount} />
           
           {/* The categories around the perimeter */}
-          <PolarAngleAxis dataKey="name" />
+          <PolarAngleAxis 
+            dataKey="name" 
+            tick={false} // We'll use custom labels
+            tickLine={false}
+          />
+          
+          {/* Custom labels for metrics */}
+          {showLabels && data.map((entry, index) => (
+            <text
+              key={`label-${index}`}
+              x={0}
+              y={0}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              className={labelClass}
+              style={{
+                transform: `translate(${Math.cos(((index / data.length) * 2 * Math.PI) - Math.PI/2) * (height/2 - 30) + height/2}px, ${Math.sin(((index / data.length) * 2 * Math.PI) - Math.PI/2) * (height/2 - 30) + height/2}px)`,
+                fill: entry.color || '#666',
+                fontSize: '12px'
+              }}
+            >
+              {entry.name}
+            </text>
+          ))}
           
           {/* The scale from center to edge */}
-          <PolarRadiusAxis
-            angle={90}
-            domain={radiusAxisDomain}
+          <PolarRadiusAxis 
+            angle={90} 
+            domain={radiusAxisDomain} 
+            tickCount={5} 
+            axisLine={false}
+            tick={{ fill: '#6b7280', fontSize: 12 }}
             tickFormatter={radiusAxisTickFormatter}
           />
           
@@ -127,6 +280,9 @@ const RadarChart: React.FC<RadarChartProps> = ({
               stroke={dataKey.color}
               fill={dataKey.color}
               fillOpacity={dataKey.fillOpacity || 0.6}
+              connectNulls={connectNulls}
+              dot={colorByPoint ? (props) => <CustomDot {...props} size={dotSize} /> : { r: dotSize }}
+              activeDot={{ r: dotSize * 1.5, fill: '#fff', stroke: dataKey.color, strokeWidth: 2 }}
             />
           ))}
         </RechartsRadarChart>

@@ -36,25 +36,33 @@ export const RADAR_CHART_CONFIGS: Record<string, ChartConfig> = {
         'possession_percentage',
         'pass_completion',
         'progressive_passes',
-        'ppda'
+        'ppda',
+        'build_up_time',
+        'field_tilt_percentage'
       ],
       attacking: [
         'expected_goals',
         'shot_accuracy',
         'counter_attack_frequency',
-        'set_piece_dependency'
+        'set_piece_dependency',
+        'shots_per_match',
+        'big_chances_created'
       ],
       defensive: [
         'defensive_line_height',
         'pressing_intensity',
         'recovery_time',
-        'defensive_duels_won'
+        'defensive_duels_won',
+        'clean_sheet_percentage',
+        'tackles_per_match'
       ],
       tempo: [
         'direct_play_vs_possession',
         'transition_speed',
-        'game_state_adaptability',
-        'attacking_transition_time'
+        'counter_press_after_loss',
+        'verticality_index',
+        'progressive_carries',
+        'game_state_adaptability'
       ]
     }
   },
