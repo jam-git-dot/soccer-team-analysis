@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ChartContainer, RadarChart } from '@/components/charts';
-import { useTeamMetricsRadarData } from '@/hooks';
+import { useTeamMetricsRadarData } from '@/hooks/useChartData';
 import type { TeamMetrics } from '@/types';
+import { ChartConfig, RADAR_CHART_CONFIGS } from '@/config/chart-configs';
 
 interface PlayStyleVisualizationProps {
   /**
@@ -47,12 +48,12 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   teamName = 'Team',
   className = '',
 }) => {
-  console.log("PlayStyleVisualization received metrics:", metrics);
+  // State for selected configuration
+  const [selectedConfigId, setSelectedConfigId] = useState<string>('team-overview');
+  const selectedConfig = RADAR_CHART_CONFIGS[selectedConfigId];
   
-  // Transform metrics data for the radar chart
-  const radarData = useTeamMetricsRadarData(metrics, ['possession', 'attacking', 'defensive', 'tempo']);
-  
-  console.log("Generated radar data:", radarData);
+  // Transform metrics data for the radar chart using the selected config
+  const radarData = useTeamMetricsRadarData(metrics, selectedConfig);
   
   // Configure radar chart data keys - ensure the key matches what's in the radarData
   const dataKeys = [
@@ -68,9 +69,14 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   const tooltipFormatter = (value: number, name: string, props: any) => {
     // Get the original (un-normalized) value if available
     const item = radarData.find(d => d.name === props.payload.name);
-    const originalValue = item?.original || value;
+    const originalValue = item?.originalValue ?? value;
     
     return [`${originalValue.toFixed(1)}`, name];
+  };
+
+  // Handle configuration change
+  const handleConfigChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedConfigId(e.target.value);
   };
 
   return (
@@ -81,10 +87,29 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         loading={loading}
         error={error}
         onRefresh={onRefresh}
-        minHeight={400}
+        minHeight={500}
         bordered={false}
         infoTooltip="This radar chart shows key metrics normalized to a 0-100 scale across different categories. The further out on each axis, the stronger the team is in that metric."
       >
+        {/* Configuration selector */}
+        <div className="mb-6">
+          <label htmlFor="config-select" className="block text-sm font-medium text-gray-700 mb-2">
+            Visualization Focus
+          </label>
+          <select
+            id="config-select"
+            value={selectedConfigId}
+            onChange={handleConfigChange}
+            className="max-w-xs rounded-md border border-gray-300 py-2 px-3 pr-8 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          >
+            {Object.entries(RADAR_CHART_CONFIGS).map(([id, config]) => (
+              <option key={id} value={id}>
+                {config.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        
         {radarData.length > 0 ? (
           <RadarChart
             data={radarData}
@@ -99,6 +124,31 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         ) : (
           <div className="flex h-full items-center justify-center">
             <p className="text-gray-500">No data available to display</p>
+          </div>
+        )}
+        
+        {/* Legend with category colors */}
+        {radarData.length > 0 && (
+          <div className="mt-6 pt-6 border-t border-gray-100">
+            <h4 className="text-sm font-medium text-gray-700 mb-2">Metric Categories</h4>
+            <div className="grid grid-cols-2 gap-3 text-xs text-gray-600">
+              <div className="flex items-center">
+                <span className="mr-2 inline-block h-3 w-3 rounded-full bg-red-400"></span>
+                <span>Attacking</span>
+              </div>
+              <div className="flex items-center">
+                <span className="mr-2 inline-block h-3 w-3 rounded-full bg-green-400"></span>
+                <span>Possession</span>
+              </div>
+              <div className="flex items-center">
+                <span className="mr-2 inline-block h-3 w-3 rounded-full bg-blue-400"></span>
+                <span>Defensive</span>
+              </div>
+              <div className="flex items-center">
+                <span className="mr-2 inline-block h-3 w-3 rounded-full bg-yellow-400"></span>
+                <span>Tempo</span>
+              </div>
+            </div>
           </div>
         )}
       </ChartContainer>

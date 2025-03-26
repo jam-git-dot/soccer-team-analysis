@@ -29,7 +29,9 @@ export function useTeamMetrics(teamId: string | undefined, seasonId?: string) {
     // Fetch team metrics
     const fetchTeamMetrics = async () => {
       try {
+        console.log(`Fetching metrics for team ID: ${teamId}`);
         const teamMetrics = await metricsService.getTeamMetrics(teamId, seasonId);
+        console.log('Metrics fetched successfully');
         setMetrics(teamMetrics);
         setLoading(false);
       } catch (err) {
