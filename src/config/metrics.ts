@@ -3,7 +3,8 @@
  * Centralizes metric definitions, formatting, and visualization defaults
  */
 
-import { PLAY_STYLE_CATEGORIES } from './constants';
+import { PlayStyleCategoryName } from './constants';
+import { PlayStyleCategoryID } from './constants';
 
 // Metric data types
 export type MetricId = string;
@@ -36,7 +37,7 @@ export type MetricDefinition = {
   id: MetricId;
   name: string;
   description: string;
-  category: 'possession' | 'attacking' | 'defensive' | 'tempo';
+  category: PlayStyleCategoryID; // one of 'possession' | 'attacking' | 'defensive' | 'tempo'
   unit: MetricUnit;
   format: MetricFormat;
   range: {
@@ -457,7 +458,7 @@ export function getMetricsByIds(metricIds: MetricId[]): MetricDefinition[] {
  * Get metrics for a play style category
  */
 export function getMetricsForPlayStyleCategory(categoryId: string): MetricDefinition[] {
-  const category = PLAY_STYLE_CATEGORIES.find(cat => cat.id === categoryId);
+  const category = PlayStyleCategoryID.find(cat => cat.id === categoryId);
   if (!category) return [];
   
   return category.metrics
