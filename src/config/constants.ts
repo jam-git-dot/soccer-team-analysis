@@ -64,49 +64,26 @@ export const SUPPORTED_LEAGUES = [
   },
 ];
 
-// Play Style Categories
+// Play Style Categories - now only include id and name to avoid duplication.
+// The individual metrics for each category will be defined in the metrics-dictionary.
 export const PLAY_STYLE_CATEGORIES = [
   {
     id: 'possession',
     name: 'Possession & Build-up',
-    metrics: [
-      'possession_percentage',
-      'pass_completion',
-      'progressive_passes',
-      'build_up_time',
-      'ppda',
-    ],
   },
   {
     id: 'attacking',
     name: 'Attacking Patterns',
-    metrics: [
-      'shot_creation_methods',
-      'attack_zones',
-      'counter_attack_frequency',
-      'set_piece_dependency',
-    ],
   },
   {
     id: 'defensive',
     name: 'Defensive Organization',
-    metrics: [
-      'defensive_line_height',
-      'pressing_intensity',
-      'recovery_time',
-      'defensive_actions_by_zone',
-    ],
   },
   {
     id: 'tempo',
     name: 'Tempo & Transitions',
-    metrics: [
-      'direct_play_vs_possession',
-      'transition_speed',
-      'game_state_adaptability',
-    ],
   },
-];
+] as const;
 
 export default {
   API_CONFIG,
@@ -116,3 +93,7 @@ export default {
   SUPPORTED_LEAGUES,
   PLAY_STYLE_CATEGORIES,
 };
+
+// Derived types from PLAY_STYLE_CATEGORIES
+export type PlayStyleCategoryID = typeof PLAY_STYLE_CATEGORIES[number]['id'];
+export type PlayStyleCategoryName = typeof PLAY_STYLE_CATEGORIES[number]['name'];
