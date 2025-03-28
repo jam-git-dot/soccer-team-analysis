@@ -1,12 +1,15 @@
-import { PlayStyleCategoryID } from './constants';
+import { MetricCategoryID } from './constants';
+import { MetricCategoryCategoryName } from './constants';
+import { MetricUnits } from './constants';
+import { MetricType } from './constants';
 
 export interface MetricDefinition {
   id: string;
   displayName: string;
   shortName: string;
-  category: PlayStyleCategoryID; // one of 'possession' | 'attacking' | 'defensive' | 'tempo'
-  type: 'for' | 'against';
-  metricKind: 'total_count' | 'per90' | 'percentile' | 'ratio' | 'delta';
+  category: MetricCategoryID; // one of 'possession' | 'attacking' | 'defensive' | 'tempo'
+  type: MetricType;
+  metricKind: MetricType;
   description: string;
 }
 

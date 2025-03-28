@@ -95,5 +95,21 @@ export default {
 };
 
 // Derived types from PLAY_STYLE_CATEGORIES
-export type PlayStyleCategoryID = typeof PLAY_STYLE_CATEGORIES[number]['id'];
-export type PlayStyleCategoryName = typeof PLAY_STYLE_CATEGORIES[number]['name'];
+export type MetricCategoryID = typeof PLAY_STYLE_CATEGORIES[number]['id'];
+export type MetricCategoryCategoryName = typeof PLAY_STYLE_CATEGORIES[number]['name'];
+
+export enum MetricUnits {
+  QTY = "qty",        // a simple quantity unit
+  PERCENT = "percent",
+  PER90 = "per90",
+  other = "other",
+}
+
+export enum MetricType {
+  RAW = "raw",
+  CALCULATED = "calculated",
+  PERCENTILE = "percentile",
+  RANK = 'rank',
+  RANK_PERCENTILE = 'rank_percentile',
+  AVERAGE = 'average',
+}
