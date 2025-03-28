@@ -1,16 +1,16 @@
 import { MetricCategoryID } from './constants';
-import { MetricCategoryCategoryName } from './constants';
 import { MetricUnits } from './constants';
 import { MetricType } from './constants';
 
 export interface MetricDefinition {
-  id: string;
-  displayName: string;
-  shortName: string;
+  id: string;                 // unique identifier for the metric
+  displayName: string;        // display name for the metric
+  shortName: string;          // short name for the metric
   category: MetricCategoryID; // one of 'possession' | 'attacking' | 'defensive' | 'tempo'
-  type: MetricType;
-  metricKind: MetricType;
-  description: string;
+  type: MetricType;           // 'raw' 'calculated' 'percentile' 'rank' 'rank_percentile' 'average'
+  units: MetricUnits;         // 'qty' 'percent' 'per90' 'other'
+  description: string;        // description of the metric
+  higherIsBetter: boolean;    // useful later
 }
 
 export const METRICS_DICTIONARY: MetricDefinition[] = [
@@ -19,7 +19,7 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     id: "matches_played",
     displayName: "Matches Played",
     shortName: "MP",
-    category: "possession", // General data – assign to a default category
+    category: "general", // General data – assign to a default category
     type: "for",
     metricKind: "total_count",
     description: "Total number of matches played by the team."
@@ -28,7 +28,7 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     id: "wins_for",
     displayName: "Wins",
     shortName: "wins",
-    category: "possession", // General data – assign to a default category
+    category: "general", // General data – assign to a default category
     type: "for",
     metricKind: "total_count",
     description: "Total number of matches won by the team."
@@ -37,7 +37,7 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     id: "draws_for",
     displayName: "Draws",
     shortName: "draws",
-    category: "possession", // General data – assign to a default category
+    category: "general", // General data – assign to a default category
     type: "for",
     metricKind: "total_count",
     description: "Total number of matches drawn/tied by the team."
@@ -46,7 +46,7 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     id: "losses_for",
     displayName: "Losses",
     shortName: "losses",
-    category: "possession", // General data – assign to a default category
+    category: "general", // General data – assign to a default category
     type: "for",
     metricKind: "total_count",
     description: "Total number of matches lost by the team."

@@ -33,9 +33,9 @@ export const CACHE_SETTINGS = {
 // Supported Leagues
 export const SUPPORTED_LEAGUES = [
   {
-    id: 'champions-league',
-    name: 'UEFA Champions League',
-    shortName: 'UCL',
+    id: 'developer',
+    name: 'Development League',
+    shortName: 'DEV',
   },
   {
     id: 'premier-league',
@@ -66,22 +66,32 @@ export const SUPPORTED_LEAGUES = [
 
 // Play Style Categories - now only include id and name to avoid duplication.
 // The individual metrics for each category will be defined in the metrics-dictionary.
+// Adding in aditional properties to filter display metrics or not.
 export const PLAY_STYLE_CATEGORIES = [
   {
+    id: 'general',
+    name: 'Team General Metrics',
+    coreCategory: false, // THIS IS A REFERENCE CATEGORY ONLY, FOR THINGS LIKE WINS, LOSSES, DRAWS, etc.
+  },
+  {
     id: 'possession',
-    name: 'Possession & Build-up',
+    name: 'Control, Possession & Build-up',
+    coreCategory: true,
   },
   {
     id: 'attacking',
     name: 'Attacking Patterns',
+    coreCategory: true,
   },
   {
-    id: 'defensive',
+    id: 'defending',
     name: 'Defensive Organization',
+    coreCategory: true,
   },
   {
     id: 'tempo',
     name: 'Tempo & Transitions',
+    coreCategory: true,
   },
 ] as const;
 
@@ -113,3 +123,4 @@ export enum MetricType {
   RANK_PERCENTILE = 'rank_percentile',
   AVERAGE = 'average',
 }
+
