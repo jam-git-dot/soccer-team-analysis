@@ -21,6 +21,33 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     metricKind: "total_count",
     description: "Total number of matches played by the team."
   },
+  {
+    id: "wins_for",
+    displayName: "Wins",
+    shortName: "wins",
+    category: "possession", // General data – assign to a default category
+    type: "for",
+    metricKind: "total_count",
+    description: "Total number of matches won by the team."
+  },
+  {
+    id: "draws_for",
+    displayName: "Draws",
+    shortName: "draws",
+    category: "possession", // General data – assign to a default category
+    type: "for",
+    metricKind: "total_count",
+    description: "Total number of matches drawn/tied by the team."
+  },
+  {
+    id: "losses_for",
+    displayName: "Losses",
+    shortName: "losses",
+    category: "possession", // General data – assign to a default category
+    type: "for",
+    metricKind: "total_count",
+    description: "Total number of matches lost by the team."
+  },
 
   // Group 2: Goalkeeping (Category: Defensive)
   {
@@ -96,15 +123,23 @@ export const METRICS_DICTIONARY: MetricDefinition[] = [
     description: "Total number of penalty kick attempts conceded."
   },
   {
-    id: "post_shot_expected_goals",
-    displayName: "Post-Shot Expected Goals",
-    shortName: "xGpost",
+    id: "post_shot_expected_goals_against",
+    displayName: "Post-Shot Expected Goals Against",
+    shortName: "xGpostAgainst",
     category: "defensive",
     type: "against",
     metricKind: "total_count",
     description: "Total post-shot expected goals conceded by the team."
   },
-
+  {
+    id: "post_shot_expected_goals_for",
+    displayName: "Post-Shot Expected Goals For",
+    shortName: "xGpostFor",
+    category: "attacking",
+    type: "for",
+    metricKind: "total_count",
+    description: "Total post-shot expected goals created by the team."
+  },
   // Group 3: Shots (For: Attacking; Against: Defensive)
   {
     id: "shots_for",
