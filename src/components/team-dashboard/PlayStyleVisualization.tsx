@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ChartContainer } from '@/components/charts';
 import RadarChart from '@/components/charts/RadarChart';
 import useTeamMetricsRadarData, { METRIC_CATEGORIES_COLORS } from '@/hooks/useTeamMetricsRadarData';
 import { RADAR_CHART_CONFIGS, getChartConfig } from '@/config/chart-configs';
@@ -87,6 +86,25 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
     setSelectedConfigId(e.target.value);
   };
 
+  // Loading state
+  if (loading) {
+    return (
+      <div className={`flex h-64 w-full items-center justify-center ${className}`}>
+        <p className="text-lg text-gray-500">Loading metrics data...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className={`rounded-lg bg-red-50 p-6 text-center ${className}`}>
+        <h3 className="mb-2 text-xl font-semibold text-red-700">Error Loading Data</h3>
+        <p className="text-red-600">{error.message}</p>
+      </div>
+    );
+  }
+
   return (
     <div className={`bg-white rounded-lg border border-gray-200 shadow-sm ${className}`}>
       {/* Team header */}
@@ -95,16 +113,7 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         <p className="text-sm text-gray-600">Developer League · {season}</p>
       </div>
       
-      <ChartContainer
-        title="Play Style Analysis"
-        description="Metrics normalized against league averages"
-        loading={loading}
-        error={error}
-        onRefresh={onRefresh}
-        minHeight={700}
-        bordered={false}
-        infoTooltip="This radar chart shows how the team compares to league averages across key metrics. Values further from the center indicate better performance relative to other teams."
-      >
+      <div className="p-6">
         {/* Configuration selector */}
         <div className="mb-6">
           <label htmlFor="config-select" className="mb-2 block text-sm font-medium text-gray-700">
@@ -126,43 +135,34 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         
         {radarData.length > 0 ? (
           <>
-            {/* Brief explanation of the chart */}
-            <div className="mb-4 text-sm text-gray-600">
-              <p>This chart shows how {teamName} compares to other teams in the league across key metrics, normalized on a 0-100 scale.</p>
+            {/* Radar chart */}
+            <div className="h-[500px] w-full">
+              <RadarChart
+                data={radarData}
+                dataKeys={dataKeys}
+                radiusAxisDomain={[0, 100]}
+                tooltipFormatter={tooltipFormatter}
+                height={500}
+                showLegend={false}
+                radiusAxisTickFormatter={(value) => `${value}%`}
+                className="mx-auto"
+                colorByPoint={true}
+                dotSize={6}
+                gridCount={5}
+                showLabels={true}
+                labelClass="text-sm font-medium"
+                connectNulls={false}
+                colorMap={METRIC_CATEGORIES_COLORS}
+              />
             </div>
             
-            {/* Radar chart */}
-            <RadarChart
-              data={radarData}
-              dataKeys={dataKeys}
-              radiusAxisDomain={[0, 100]}
-              tooltipFormatter={tooltipFormatter}
-              height={500}
-              showLegend={false}
-              radiusAxisTickFormatter={(value) => `${value}%`}
-              className="mx-auto"
-              colorByPoint={true}
-              dotSize={6}
-              gridCount={5}
-              showLabels={true}
-              labelClass="text-sm font-medium"
-              connectNulls={false}
-              colorMap={METRIC_CATEGORIES_COLORS}
-            />
-            
-            {/* Category legend */}
-            <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {/* Category legend with colored text */}
+            <div className="mt-8 flex justify-center space-x-8">
               {Object.entries(METRIC_CATEGORIES_COLORS).map(([category, info]) => (
-                <div key={category} className="flex flex-col items-center rounded-lg border border-gray-200 p-3">
-                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full" style={{ backgroundColor: info.color }}>
-                    <span className="text-sm font-bold text-white">{category.charAt(0).toUpperCase()}</span>
-                  </div>
-                  <h4 className="text-sm font-medium text-gray-700">
+                <div key={category} className="text-center">
+                  <h4 className="text-lg font-medium" style={{ color: info.color }}>
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </h4>
-                  <p className="mt-1 text-center text-xs text-gray-500">
-                    {getCategoryDescription(category)}
-                  </p>
                 </div>
               ))}
             </div>
@@ -195,31 +195,13 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
             </div>
           </>
         ) : (
-          <div className="flex h-full items-center justify-center">
+          <div className="flex h-[500px] items-center justify-center">
             <p className="text-gray-500">No data available for visualization</p>
           </div>
         )}
-      </ChartContainer>
+      </div>
     </div>
   );
 };
-
-/**
- * Get a description for each category
- */
-function getCategoryDescription(category: string): string {
-  switch (category) {
-    case 'attacking':
-      return 'How the team creates and converts scoring opportunities';
-    case 'possession':
-      return 'How the team controls and progresses the ball';
-    case 'defending':
-      return 'How the team prevents opponents from scoring';
-    case 'tempo':
-      return 'How the team transitions between phases of play';
-    default:
-      return '';
-  }
-}
 
 export default PlayStyleVisualization;

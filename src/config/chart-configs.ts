@@ -27,40 +27,32 @@ export const RADAR_CHART_CONFIGS: Record<string, ChartConfig> = {
   'team-overview': {
     id: 'team-overview',
     name: 'Team Overview',
-    description: 'Key metrics across all categories',
+    description: 'Balanced view of play style with 3 key metrics per category',
     type: 'radar',
     metrics: {
-      possession: [
-        'possession_percentage_for',
-        'pass_completion',
-        'progressive_passes_for', 
-        'field_tilt_percentage',
-        'passes_per_defensive_action_for',
-        'dribble_success_rate'
-      ],
+      // Top position (0 degrees)
       attacking: [
-        'xg_for',
-        'shots_per_match',
-        'shot_accuracy', 
-        'big_chances_created',
-        'counter_attack_frequency',
-        'touches_in_opposition_penalty_area_for'
+        'xg_for',                  // Expected goals
+        'counter_attack_frequency', // Counter-attack reliance
+        'big_chances_created',      // Creativity
       ],
+      // Left position (90 degrees)
+      possession: [
+        'possession_percentage_for', // Ball control
+        'pass_completion',          // Technical quality
+        'field_tilt_percentage',    // Territorial dominance
+      ],
+      // Bottom position (180 degrees)
       defending: [
-        'clean_sheet_percentage',
-        'defensive_duels_won',
-        'tackles_per_match',
-        'defensive_line_height',
-        'pressing_intensity',
-        'xg_against'
+        'defensive_duels_won',      // Defensive effectiveness
+        'pressing_intensity',       // Defensive approach
+        'clean_sheet_percentage',   // Defensive outcomes
       ],
+      // Right position (270 degrees)
       tempo: [
-        'direct_play_vs_possession',
-        'transition_speed',
-        'counter_press_after_loss',
-        'verticality_index',
-        'progressive_carries',
-        'recovery_time'
+        'direct_play_vs_possession', // Play style philosophy
+        'transition_speed',         // Counter-attack speed
+        'counter_press_after_loss', // Gegenpressing style
       ]
     }
   },

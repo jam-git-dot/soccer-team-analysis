@@ -13,6 +13,7 @@ export interface RadarChartDataEntry {
   originalValue: number;  // Original raw value of the metric
   percentile?: number;    // Percentile value (0-100) if available
   teamName?: string;      // Team name for data key in chart
+  displayValue?: string;  // Formatted raw value for display
   leagueContext?: string; // Description of league ranking
   angle?: number;         // Optional angle for positioning
   color?: string;         // Optional color based on category
@@ -23,22 +24,26 @@ export const METRIC_CATEGORIES_COLORS = {
   attacking: {
     position: 'top',
     color: '#EF4444', // Red
-    angleRange: [-45, 45] // Centered at top (0 degrees)
+    baseAngle: 0,     // Top 
+    angleRange: [-30, 30] // 60 degree span centered at top (0 degrees)
   },
   possession: {
     position: 'left',
     color: '#10B981', // Green
-    angleRange: [45, 135] // Centered at left (90 degrees)
+    baseAngle: 90,    // Left
+    angleRange: [60, 120] // 60 degree span centered at left (90 degrees)
   },
   defending: {
     position: 'bottom',
     color: '#3B82F6', // Blue
-    angleRange: [135, 225] // Centered at bottom (180 degrees)
+    baseAngle: 180,   // Bottom
+    angleRange: [150, 210] // 60 degree span centered at bottom (180 degrees)
   },
   tempo: {
     position: 'right',
     color: '#F59E0B', // Amber/yellow
-    angleRange: [225, 315] // Centered at right (270 degrees)
+    baseAngle: 270,   // Right
+    angleRange: [240, 300] // 60 degree span centered at right (270 degrees)
   }
 };
 
@@ -69,15 +74,19 @@ export function useTeamMetricsRadarData(
     Object.entries(metricsToDisplay).forEach(([category, metricIds]) => {
       if (!Array.isArray(metricIds)) return;
       
-      // Get the angle range for this category
+      // Get the category information for positioning
       const categoryInfo = METRIC_CATEGORIES_COLORS[category as keyof typeof METRIC_CATEGORIES_COLORS];
       if (!categoryInfo) return;
       
-      const [startAngle, endAngle] = categoryInfo.angleRange;
-      const metricCount = metricIds.length;
+      // Fix number of metrics to exactly 3 per category for even distribution
+      const displayMetrics = metricIds.slice(0, 3);
+      const metricCount = displayMetrics.length;
       
-      // Process each metric in this category
-      metricIds.forEach((metricId, index) => {
+      // Calculate angles based on fixed positions
+      const baseAngle = categoryInfo.baseAngle; // 0, 90, 180, or 270
+      
+      // Process each metric in this category (max 3)
+      displayMetrics.forEach((metricId, index) => {
         // Find the metric definition
         const metricDef = METRICS_DICTIONARY.find(m => m.id === metricId);
         if (!metricDef) {
@@ -92,16 +101,16 @@ export function useTeamMetricsRadarData(
           return;
         }
         
-        // Calculate angle for positioning (for visual organization)
-        let angle;
-        if (metricCount === 1) {
-          // If only one metric in this category, put it in the middle
-          angle = (startAngle + endAngle) / 2;
-        } else {
-          // Otherwise, distribute evenly
-          const angleSpan = endAngle - startAngle;
-          const fraction = (index / (metricCount - 1)) - 0.5;
-          angle = (startAngle + endAngle) / 2 + (fraction * angleSpan);
+        // Calculate angle based on position within category
+        // With 3 metrics per category, we space them at -30, 0, and +30 degrees from the base angle
+        const angleAdjustment = (index - 1) * 30; // -30, 0, or +30
+        const angle = baseAngle + angleAdjustment;
+        
+        // Get percentile for this metric if available, or normalize the raw value
+        // In a real implementation, percentiles would come from the backend
+        let percentile: number | undefined;
+        if (teamMetrics.metrics[metricId]?.percentile !== undefined) {
+          percentile = teamMetrics.metrics[metricId].percentile;
         }
         
         // Normalize the value for display (0-100 scale)
@@ -113,9 +122,11 @@ export function useTeamMetricsRadarData(
           category: category,
           metricId: metricId,
           originalValue: rawValue,
-          value: normalizedValue,
-          teamName: normalizedValue, // Use as dataKey for the chart
-          leagueContext: getLeagueContextDescription(normalizedValue),
+          value: percentile !== undefined ? percentile : normalizedValue,
+          percentile: percentile !== undefined ? percentile : normalizedValue,
+          teamName: percentile !== undefined ? percentile : normalizedValue, // Use as dataKey for the chart
+          displayValue: getDisplayValue(metricDef, rawValue), // Formatted raw value
+          leagueContext: getLeagueContextDescription(percentile || normalizedValue),
           angle: angle,
           color: categoryInfo.color
         };
@@ -127,6 +138,23 @@ export function useTeamMetricsRadarData(
     // Sort by angle for consistent presentation
     return result.sort((a, b) => (a.angle || 0) - (b.angle || 0));
   }, [teamMetrics, config, usePercentiles]);
+}
+
+/**
+ * Format a raw metric value for display based on its definition
+ */
+function getDisplayValue(metricDef: MetricDefinition, value: number): string {
+  // Handle different unit types
+  switch (metricDef.units) {
+    case 'percent':
+      return `${value.toFixed(1)}%`;
+    case 'per90':
+      return `${value.toFixed(2)}/90`;
+    case 'qty':
+      return value.toFixed(1);
+    default:
+      return value.toFixed(1);
+  }
 }
 
 /**
