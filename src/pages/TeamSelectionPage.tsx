@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getAllTeams } from '../services/mock-data';
-import { SUPPORTED_LEAGUES } from '../config/constants';
+import { SUPPORTED_LEAGUES } from '@/config/constants';
 
 /**
  * Team Selection Page component
@@ -10,17 +10,51 @@ import { SUPPORTED_LEAGUES } from '../config/constants';
 const TeamSelectionPage = () => {
   const { leagueId } = useParams<{ leagueId: string }>();
   const [searchTerm, setSearchTerm] = useState('');
+  const [teams, setTeams] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Get all teams from the mock data service
-  const allTeams = getAllTeams();
-
-  // For version 0.5, we're focusing only on Premier League
-  // In a future version, we would filter teams by league from an API
-  const teams = allTeams.map(team => ({
-    id: team.id,
-    name: team.name,
-    logo: team.logoUrl
-  }));
+  // Ensure we're using a valid league ID
+  const currentLeagueId = leagueId || 'developer-league';
+  
+  // Fetch teams on component mount or when leagueId changes
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Check if the league is available
+        const league = SUPPORTED_LEAGUES.find(l => l.id === currentLeagueId);
+        if (!league) {
+          throw new Error(`Unknown league: ${currentLeagueId}`);
+        }
+        
+        if (league.disabled) {
+          throw new Error(`The ${league.name} data is not available yet.`);
+        }
+        
+        // Get teams for the league
+        const allTeams = getAllTeams();
+        
+        // Map teams to simplified format
+        const formattedTeams = allTeams.map(team => ({
+          id: team.id,
+          name: team.name,
+          logo: team.logoUrl || `https://placehold.co/80x80?text=${team.shortName || team.name.substring(0, 3).toUpperCase()}`
+        }));
+        
+        setTeams(formattedTeams);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching teams:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load teams');
+        setLoading(false);
+      }
+    };
+    
+    fetchTeams();
+  }, [currentLeagueId]);
 
   // Filter teams based on search term
   const filteredTeams = teams.filter((team) =>
@@ -33,6 +67,32 @@ const TeamSelectionPage = () => {
     return league ? league.name : id;
   };
 
+  // Render loading state
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex h-64 w-full items-center justify-center">
+          <p className="text-lg text-gray-500">Loading teams...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Render error state
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-6">
+        <div className="rounded-lg bg-red-50 p-6 text-center">
+          <h2 className="mb-4 text-xl font-bold text-red-700">Error</h2>
+          <p className="text-red-600">{error}</p>
+          <Link to="/" className="mt-4 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+            Return to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Breadcrumb navigation */}
@@ -42,13 +102,13 @@ const TeamSelectionPage = () => {
             Home
           </Link>
           <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-700">{getLeagueName(leagueId || '')}</span>
+          <span className="text-gray-700">{getLeagueName(currentLeagueId)}</span>
         </nav>
       </div>
 
       {/* Page header */}
       <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold">{getLeagueName(leagueId || '')}</h1>
+        <h1 className="mb-2 text-3xl font-bold">{getLeagueName(currentLeagueId)}</h1>
         <p className="text-lg text-gray-600">
           Select a team to view detailed play style analysis and performance metrics.
         </p>

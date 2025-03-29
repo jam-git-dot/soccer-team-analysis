@@ -10,16 +10,22 @@ class MetricsService {
   /**
    * Get team metrics data
    * @param teamId Team ID
+   * @param leagueId League ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with team metrics
    */
-  async getTeamMetrics(teamId: string, seasonId?: string): Promise<TeamMetrics> {
+  async getTeamMetrics(teamId: string, leagueId: string = 'developer-league', seasonId?: string): Promise<TeamMetrics> {
     try {
-      console.log('Using mock team metrics data for team:', teamId);
+      console.log(`Fetching metrics for team: ${teamId} in league: ${leagueId}`);
+      
+      // Only return data for the Developer League
+      if (leagueId !== 'developer-league') {
+        throw new Error(`Data for league ${leagueId} is not available yet`);
+      }
       
       // Find team metrics in mock data
       const teamMetrics = mockTeamMetricsData.find(
-        metrics => metrics.teamId === teamId && (!seasonId || metrics.seasonId === seasonId)
+        metrics => metrics.teamId === teamId
       );
       
       if (!teamMetrics) {
@@ -43,11 +49,11 @@ class MetricsService {
   /**
    * Get comparative metrics for the team in a league context
    * @param teamId Team ID
-   * @param leagueId League ID
+   * @param leagueId League ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with comparative metrics
    */
-  async getComparativeMetrics(teamId: string, leagueId: string, seasonId?: string) {
+  async getComparativeMetrics(teamId: string, leagueId: string = 'developer-league', seasonId?: string) {
     // This would normally fetch comparative metrics from the API
     // For now, return a placeholder since this isn't implemented in the mock data
     console.log('Comparative metrics not implemented in mock data');
@@ -57,10 +63,11 @@ class MetricsService {
   /**
    * Get metrics grouped by match result (win, draw, loss)
    * @param teamId Team ID
+   * @param leagueId League ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with metrics by result
    */
-  async getMetricsByResult(teamId: string, seasonId?: string) {
+  async getMetricsByResult(teamId: string, leagueId: string = 'developer-league', seasonId?: string) {
     // This would normally fetch metrics grouped by result from the API
     // For now, return a placeholder since this isn't implemented in the mock data
     console.log('Metrics by result not implemented in mock data');
@@ -71,9 +78,10 @@ class MetricsService {
    * Get match metrics for a specific team
    * @param teamId Team ID
    * @param matchId Match ID
+   * @param leagueId League ID (defaults to developer-league)
    * @returns Promise with match metrics
    */
-  async getMatchMetrics(teamId: string, matchId: string) {
+  async getMatchMetrics(teamId: string, matchId: string, leagueId: string = 'developer-league') {
     // This would normally fetch match metrics from the API
     console.log('Match metrics not implemented in mock data');
     return null;
@@ -81,11 +89,11 @@ class MetricsService {
   
   /**
    * Get play style distribution in a league
-   * @param leagueId League ID
+   * @param leagueId League ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with play style distribution
    */
-  async getLeaguePlayStyleDistribution(leagueId: string, seasonId?: string) {
+  async getLeaguePlayStyleDistribution(leagueId: string = 'developer-league', seasonId?: string) {
     // This would normally fetch league play style distribution from the API
     console.log('League play style distribution not implemented in mock data');
     return null;

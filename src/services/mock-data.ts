@@ -13,6 +13,7 @@ export type TeamBasicInfo = {
   name: string;
   shortName: string;
   logoUrl: string;
+  leagueId?: string; // Optional league ID
 };
 
 export type MatchResult = 'win' | 'draw' | 'loss' | 'all';
@@ -58,71 +59,29 @@ export const PREMIER_LEAGUE_TEAMS: TeamBasicInfo[] = [
   { id: 'luton', name: 'Luton Town', shortName: 'LUT', logoUrl: 'https://placehold.co/80x80?text=LUT' },
 ];
 
-// Team play style templates to generate realistic data
-const TEAM_PLAY_STYLE_TEMPLATES = {
-  'possession-based': {
-    possession_percentage: { base: 65, variance: 10 },
-    pass_completion: { base: 88, variance: 5 },
-    progressive_passes: { base: 70, variance: 15 },
-    build_up_time: { base: 15, variance: 5 },
-    ppda: { base: 8, variance: 3 },
-    direct_play_vs_possession: { base: 25, variance: 15 },
-    transition_speed: { base: 12, variance: 5 },
-  },
-  'high-pressing': {
-    pressing_intensity: { base: 85, variance: 10 },
-    ppda: { base: 6, variance: 2 },
-    recovery_time: { base: 6, variance: 3 },
-    defensive_line_height: { base: 48, variance: 8 },
-    transition_speed: { base: 18, variance: 4 },
-  },
-  'counter-attacking': {
-    counter_attack_frequency: { base: 35, variance: 10 },
-    transition_speed: { base: 22, variance: 5 },
-    direct_play_vs_possession: { base: 75, variance: 15 },
-    possession_percentage: { base: 40, variance: 10 },
-  },
-  'direct-play': {
-    direct_play_vs_possession: { base: 80, variance: 10 },
-    build_up_time: { base: 8, variance: 3 },
-    progressive_passes: { base: 45, variance: 10 },
-    pass_completion: { base: 70, variance: 8 },
-  },
-  'defensive-solid': {
-    defensive_duels_won: { base: 65, variance: 10 },
-    defensive_line_height: { base: 32, variance: 6 },
-    pressing_intensity: { base: 40, variance: 15 },
-    recovery_time: { base: 12, variance: 4 },
-  },
-  'set-piece-specialists': {
-    set_piece_dependency: { base: 40, variance: 10 },
-    defensive_duels_won: { base: 60, variance: 10 },
-  },
-};
-
-// Assign play style templates to teams
-const TEAM_STYLES: Record<TeamId, (keyof typeof TEAM_PLAY_STYLE_TEMPLATES)[]> = {
-  'man-city': ['possession-based', 'high-pressing'],
-  'arsenal': ['possession-based', 'high-pressing'],
-  'liverpool': ['high-pressing', 'counter-attacking'],
-  'man-utd': ['counter-attacking', 'direct-play'],
-  'tottenham': ['possession-based', 'counter-attacking'],
-  'chelsea': ['possession-based', 'set-piece-specialists'],
-  'newcastle': ['high-pressing', 'defensive-solid'],
-  'brighton': ['possession-based', 'high-pressing'],
-  'aston-villa': ['counter-attacking', 'high-pressing'],
-  'west-ham': ['defensive-solid', 'set-piece-specialists'],
-  'crystal-palace': ['counter-attacking', 'defensive-solid'],
-  'brentford': ['direct-play', 'set-piece-specialists'],
-  'fulham': ['counter-attacking', 'direct-play'],
-  'bournemouth': ['defensive-solid', 'counter-attacking'],
-  'wolves': ['possession-based', 'defensive-solid'],
-  'nottm-forest': ['defensive-solid', 'direct-play'],
-  'everton': ['defensive-solid', 'direct-play'],
-  'burnley': ['direct-play', 'defensive-solid'],
-  'luton': ['defensive-solid', 'set-piece-specialists'],
-  'sheffield': ['defensive-solid', 'direct-play'],
-};
+// Developer League teams (based on team-metrics.json)
+export const DEVELOPER_LEAGUE_TEAMS: TeamBasicInfo[] = [
+  { id: 'Arsenaki', name: 'Arsenaki FC', shortName: 'ARS', logoUrl: 'https://placehold.co/80x80?text=ARS', leagueId: 'developer-league' },
+  { id: 'Astons Village', name: 'Astons Village', shortName: 'AST', logoUrl: 'https://placehold.co/80x80?text=AST', leagueId: 'developer-league' },
+  { id: 'Bournemilk', name: 'Bournemilk United', shortName: 'BOU', logoUrl: 'https://placehold.co/80x80?text=BOU', leagueId: 'developer-league' },
+  { id: 'Brents Bees', name: 'Brents Bees', shortName: 'BEE', logoUrl: 'https://placehold.co/80x80?text=BEE', leagueId: 'developer-league' },
+  { id: 'Bright Ton', name: 'Bright Ton Rovers', shortName: 'BRI', logoUrl: 'https://placehold.co/80x80?text=BRI', leagueId: 'developer-league' },
+  { id: 'Chelzea', name: 'Chelzea Blues', shortName: 'CHE', logoUrl: 'https://placehold.co/80x80?text=CHE', leagueId: 'developer-league' },
+  { id: 'Crystal House', name: 'Crystal House', shortName: 'CRY', logoUrl: 'https://placehold.co/80x80?text=CRY', leagueId: 'developer-league' },
+  { id: 'EverteenyTiny', name: 'EverteenyTiny', shortName: 'EVE', logoUrl: 'https://placehold.co/80x80?text=EVE', leagueId: 'developer-league' },
+  { id: 'Fullestham', name: 'Fullestham FC', shortName: 'FUL', logoUrl: 'https://placehold.co/80x80?text=FUL', leagueId: 'developer-league' },
+  { id: 'Ipswizzle Town', name: 'Ipswizzle Town', shortName: 'IPS', logoUrl: 'https://placehold.co/80x80?text=IPS', leagueId: 'developer-league' },
+  { id: 'Leicester, Barely Know Her', name: 'Leicester, Barely Know Her', shortName: 'LEI', logoUrl: 'https://placehold.co/80x80?text=LEI', leagueId: 'developer-league' },
+  { id: 'Liverpump', name: 'Liverpump FC', shortName: 'LIV', logoUrl: 'https://placehold.co/80x80?text=LIV', leagueId: 'developer-league' },
+  { id: 'Manc Blues', name: 'Manc Blues', shortName: 'MNC', logoUrl: 'https://placehold.co/80x80?text=MNC', leagueId: 'developer-league' },
+  { id: 'Manchester RedShite', name: 'Manchester RedShite', shortName: 'MNU', logoUrl: 'https://placehold.co/80x80?text=MNU', leagueId: 'developer-league' },
+  { id: 'New Beheddies', name: 'New Beheddies', shortName: 'NEW', logoUrl: 'https://placehold.co/80x80?text=NEW', leagueId: 'developer-league' },
+  { id: 'NotTingHamForRest', name: 'NotTingHamForRest', shortName: 'NOT', logoUrl: 'https://placehold.co/80x80?text=NOT', leagueId: 'developer-league' },
+  { id: 'SouthEastHampton', name: 'SouthEastHampton', shortName: 'SOU', logoUrl: 'https://placehold.co/80x80?text=SOU', leagueId: 'developer-league' },
+  { id: 'Tottingham', name: 'Tottingham Hotties', shortName: 'TOT', logoUrl: 'https://placehold.co/80x80?text=TOT', leagueId: 'developer-league' },
+  { id: 'Wests Clarets', name: 'Wests Clarets', shortName: 'WES', logoUrl: 'https://placehold.co/80x80?text=WES', leagueId: 'developer-league' },
+  { id: 'Wolfpack', name: 'Wolfpack Wanderers', shortName: 'WOL', logoUrl: 'https://placehold.co/80x80?text=WOL', leagueId: 'developer-league' },
+];
 
 // Mock data generation functions
 /**
@@ -140,201 +99,50 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 /**
- * Generate base metrics for a team based on its play style templates
+ * Get teams based on league ID
  */
-function generateBaseMetrics(teamId: TeamId): Record<MetricId, number> {
-  const styles = TEAM_STYLES[teamId] || ['defensive-solid'];
-  const baseMetrics: Record<string, number> = {};
-  
-  // Start with random values for all metrics
-  Object.keys(METRICS).forEach(metricId => {
-    const metric = METRICS[metricId];
-    const range = metric.range;
-    baseMetrics[metricId] = randomBetween(range.min, range.max);
-  });
-  
-  // Apply team style templates
-  styles.forEach(style => {
-    const template = TEAM_PLAY_STYLE_TEMPLATES[style];
-    if (!template) return;
-    
-    Object.entries(template).forEach(([metricId, config]) => {
-      if (baseMetrics[metricId] !== undefined) {
-        // Apply template with some randomness
-        const randomFactor = randomBetween(-config.variance, config.variance);
-        baseMetrics[metricId] = clamp(
-          config.base + randomFactor,
-          METRICS[metricId].range.min,
-          METRICS[metricId].range.max
-        );
-      }
-    });
-  });
-  
-  return baseMetrics as Record<MetricId, number>;
-}
-
-/**
- * Generate metrics for different match results
- * Values are based on the base metrics but with variations
- */
-function generateMetricsByResult(
-  baseMetrics: Record<MetricId, number>
-): { 
-  win: Record<MetricId, number>;
-  draw: Record<MetricId, number>;
-  loss: Record<MetricId, number>;
-} {
-  const win: Record<MetricId, number> = {};
-  const draw: Record<MetricId, number> = {};
-  const loss: Record<MetricId, number> = {};
-  
-  Object.entries(baseMetrics).forEach(([metricId, value]) => {
-    const metric = METRICS[metricId as MetricId];
-    const range = metric.range;
-    const span = range.max - range.min;
-    
-    // Team performs better in wins
-    win[metricId as MetricId] = clamp(
-      value * (metric.higherIsBetter !== false ? 1.15 : 0.85),
-      range.min,
-      range.max
-    );
-    
-    // Team performs worse in losses
-    loss[metricId as MetricId] = clamp(
-      value * (metric.higherIsBetter !== false ? 0.85 : 1.15),
-      range.min,
-      range.max
-    );
-    
-    // Team performance in draws is closer to the base
-    draw[metricId as MetricId] = clamp(
-      value * (metric.higherIsBetter !== false ? 1.02 : 0.98),
-      range.min,
-      range.max
-    );
-  });
-  
-  return { win, draw, loss };
-}
-
-/**
- * Calculate percentiles for all teams for a given metric
- */
-function calculatePercentiles(
-  allTeamsMetrics: Record<TeamId, Record<MetricId, number>>,
-  metricId: MetricId
-): Record<TeamId, number> {
-  const metric = METRICS[metricId];
-  if (!metric) return {};
-  
-  const values = Object.entries(allTeamsMetrics).map(([teamId, metrics]) => ({
-    teamId,
-    value: metrics[metricId]
-  }));
-  
-  // Sort values based on whether higher is better
-  values.sort((a, b) => {
-    if (metric.higherIsBetter === false) {
-      return a.value - b.value; // Lower is better, so sort ascending
-    }
-    return b.value - a.value; // Higher is better, so sort descending
-  });
-  
-  // Calculate percentiles
-  const percentiles: Record<TeamId, number> = {};
-  values.forEach((item, index) => {
-    percentiles[item.teamId] = Math.round(((values.length - index - 1) / (values.length - 1)) * 100);
-  });
-  
-  return percentiles;
-}
-
-/**
- * Generate mock data for all Premier League teams
- */
-export function generateMockTeamData(): Record<TeamId, TeamMetricsByResult> {
-  // Generate base metrics for all teams
-  const baseTeamMetrics: Record<TeamId, Record<MetricId, number>> = {};
-  PREMIER_LEAGUE_TEAMS.forEach(team => {
-    baseTeamMetrics[team.id] = generateBaseMetrics(team.id);
-  });
-  
-  // Calculate percentiles for base metrics
-  const basePercentiles: Record<MetricId, Record<TeamId, number>> = {};
-  Object.keys(METRICS).forEach(metricId => {
-    basePercentiles[metricId as MetricId] = calculatePercentiles(baseTeamMetrics, metricId as MetricId);
-  });
-  
-  // Generate metrics by result for all teams
-  const teamData: Record<TeamId, TeamMetricsByResult> = {};
-  
-  PREMIER_LEAGUE_TEAMS.forEach(team => {
-    const baseMetrics = baseTeamMetrics[team.id];
-    const metricsByResult = generateMetricsByResult(baseMetrics);
-    
-    // Create TeamMetricsData objects
-    const createTeamMetricsData = (
-      metrics: Record<MetricId, number>
-    ): TeamMetricsData => {
-      const data: TeamMetricsData = {
-        teamId: team.id,
-        metrics: {}
-      };
-      
-      Object.entries(metrics).forEach(([metricId, value]) => {
-        data.metrics[metricId as MetricId] = {
-          value,
-          percentile: basePercentiles[metricId as MetricId][team.id]
-        };
-      });
-      
-      return data;
-    };
-    
-    teamData[team.id] = {
-      all: createTeamMetricsData(baseMetrics),
-      win: createTeamMetricsData(metricsByResult.win),
-      draw: createTeamMetricsData(metricsByResult.draw),
-      loss: createTeamMetricsData(metricsByResult.loss)
-    };
-  });
-  
-  return teamData;
-}
-
-// Cached mock data
-let mockTeamData: Record<TeamId, TeamMetricsByResult> | null = null;
-
-/**
- * Get mock data for all teams
- */
-export function getMockTeamData(): Record<TeamId, TeamMetricsByResult> {
-  if (!mockTeamData) {
-    mockTeamData = generateMockTeamData();
+export function getTeamsByLeague(leagueId: string = 'developer-league'): TeamBasicInfo[] {
+  switch (leagueId) {
+    case 'developer-league':
+      return DEVELOPER_LEAGUE_TEAMS;
+    case 'premier-league':
+      return PREMIER_LEAGUE_TEAMS;
+    default:
+      console.warn(`No teams data available for league: ${leagueId}`);
+      return [];
   }
-  return mockTeamData;
 }
 
 /**
  * Get mock data for a specific team
  */
 export function getTeamData(teamId: TeamId): TeamMetricsByResult | null {
-  const allTeamData = getMockTeamData();
-  return allTeamData[teamId] || null;
+  // In a real implementation, this would fetch team metrics data
+  // For now, return null since we're using team-metrics.json directly
+  console.log(`Placeholder for getting team data: ${teamId}`);
+  return null;
 }
 
 /**
  * Get team info by ID
  */
 export function getTeamInfo(teamId: TeamId): TeamBasicInfo | null {
-  return PREMIER_LEAGUE_TEAMS.find(team => team.id === teamId) || null;
+  // First check Developer League
+  const devLeagueTeam = DEVELOPER_LEAGUE_TEAMS.find(team => team.id === teamId);
+  if (devLeagueTeam) return devLeagueTeam;
+  
+  // Then check Premier League
+  const premLeagueTeam = PREMIER_LEAGUE_TEAMS.find(team => team.id === teamId);
+  if (premLeagueTeam) return premLeagueTeam;
+  
+  // Not found
+  return null;
 }
 
 /**
  * Get all teams
  */
 export function getAllTeams(): TeamBasicInfo[] {
-  return PREMIER_LEAGUE_TEAMS;
+  // Currently only returning Developer League teams since that's where our real data is
+  return DEVELOPER_LEAGUE_TEAMS;
 }

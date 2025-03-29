@@ -30,38 +30,26 @@ export const CACHE_SETTINGS = {
   STORAGE_KEY: 'soccer_analysis_cache',
 };
 
-// Supported Leagues
 export const SUPPORTED_LEAGUES = [
   {
-    id: 'developer',
-    name: 'Development League',
+    id: 'developer-league',
+    name: 'Developer League',
     shortName: 'DEV',
+    disabled: false // Available league
   },
   {
     id: 'premier-league',
     name: 'Premier League',
     shortName: 'EPL',
+    disabled: true // Disabled league (coming soon)
   },
   {
     id: 'la-liga',
     name: 'La Liga',
     shortName: 'LaLiga',
+    disabled: true
   },
-  {
-    id: 'bundesliga',
-    name: 'Bundesliga',
-    shortName: 'BL',
-  },
-  {
-    id: 'serie-a',
-    name: 'Serie A',
-    shortName: 'SA',
-  },
-  {
-    id: 'ligue-1',
-    name: 'Ligue 1',
-    shortName: 'L1',
-  },
+  // Other leagues with disabled: true
 ];
 
 // Play Style Categories - now only include id and name to avoid duplication.

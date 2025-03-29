@@ -21,18 +21,27 @@ import mockMatchesData from '@/mock/matches.json';
 class TeamService {
   /**
    * Get all teams
-   * @param leagueId Optional league ID to filter teams
+   * @param leagueId Optional league ID to filter teams (defaults to developer-league)
    * @returns Promise with array of teams
    */
-  async getTeams(leagueId?: string): Promise<Team[]> {
+  async getTeams(leagueId: string = 'developer-league'): Promise<Team[]> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock team data');
+        console.log(`Using mock team data for league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          console.warn(`Data for league ${leagueId} is not available yet`);
+          return [];
+        }
+        
         // Filter teams by league if leagueId is provided
-        const teams = leagueId 
-          ? mockTeamsData.filter(team => team.leagueId === leagueId)
-          : mockTeamsData;
+        const teams = mockTeamsData.filter(team => 
+          // In mock data, we might not have leagueId, so treat all teams as part of Developer League
+          !leagueId || team.leagueId === leagueId || !team.leagueId
+        );
+        
         return teams as Team[];
       }
 
@@ -52,13 +61,20 @@ class TeamService {
   /**
    * Get team details by ID
    * @param teamId Team ID
+   * @param leagueId Optional league ID (defaults to developer-league)
    * @returns Promise with team details
    */
-  async getTeamById(teamId: string): Promise<TeamDetails> {
+  async getTeamById(teamId: string, leagueId: string = 'developer-league'): Promise<TeamDetails> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock team details data');
+        console.log(`Using mock team details data for team: ${teamId}, league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          throw new Error(`Data for league ${leagueId} is not available yet`);
+        }
+        
         const team = mockTeamsData.find(t => t.id === teamId);
         
         if (!team) {
@@ -80,14 +96,21 @@ class TeamService {
   /**
    * Get team statistics
    * @param teamId Team ID
+   * @param leagueId Optional league ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with team statistics
    */
-  async getTeamStats(teamId: string, seasonId?: string): Promise<TeamStats> {
+  async getTeamStats(teamId: string, leagueId: string = 'developer-league', seasonId?: string): Promise<TeamStats> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock team stats data');
+        console.log(`Using mock team stats data for team: ${teamId}, league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          throw new Error(`Data for league ${leagueId} is not available yet`);
+        }
+        
         const teamStats = mockTeamStatsData.find(
           stats => stats.teamId === teamId && (!seasonId || stats.seasonId === seasonId)
         );
@@ -112,13 +135,19 @@ class TeamService {
   /**
    * Get team with stats combined
    * @param teamId Team ID
+   * @param leagueId Optional league ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with team and stats combined
    */
-  async getTeamWithStats(teamId: string, seasonId?: string): Promise<TeamWithStats> {
+  async getTeamWithStats(teamId: string, leagueId: string = 'developer-league', seasonId?: string): Promise<TeamWithStats> {
     try {
-      const team = await this.getTeamById(teamId);
-      const stats = await this.getTeamStats(teamId, seasonId);
+      // Only provide data for the Developer League
+      if (leagueId !== 'developer-league') {
+        throw new Error(`Data for league ${leagueId} is not available yet`);
+      }
+      
+      const team = await this.getTeamById(teamId, leagueId);
+      const stats = await this.getTeamStats(teamId, leagueId, seasonId);
       
       return {
         ...team,
@@ -133,21 +162,29 @@ class TeamService {
   /**
    * Search teams by name
    * @param searchTerm Search term
-   * @param leagueId Optional league ID to filter results
+   * @param leagueId Optional league ID to filter results (defaults to developer-league)
    * @returns Promise with array of matching teams
    */
-  async searchTeams(searchTerm: string, leagueId?: string): Promise<Team[]> {
+  async searchTeams(searchTerm: string, leagueId: string = 'developer-league'): Promise<Team[]> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock team search data');
+        console.log(`Using mock team search data for term: ${searchTerm}, league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          return [];
+        }
+        
         let teams = mockTeamsData.filter(
           team => team.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         
         // Filter by league if provided
         if (leagueId) {
-          teams = teams.filter(team => team.leagueId === leagueId);
+          teams = teams.filter(team => 
+            team.leagueId === leagueId || !team.leagueId // If no leagueId, assume it's in the Developer League
+          );
         }
         
         return teams as Team[];
@@ -171,14 +208,20 @@ class TeamService {
   /**
    * Get rival teams that have played against the specified team
    * @param teamId Team ID
+   * @param leagueId Optional league ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @returns Promise with array of rival teams
    */
-  async getRivalTeams(teamId: string, seasonId?: string): Promise<Team[]> {
+  async getRivalTeams(teamId: string, leagueId: string = 'developer-league', seasonId?: string): Promise<Team[]> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock rival teams data');
+        console.log(`Using mock rival teams data for team: ${teamId}, league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          return [];
+        }
         
         // Filter matches involving the team
         const teamMatches = mockMatchesData.filter(
@@ -215,25 +258,32 @@ class TeamService {
 
   /**
    * Get teams by league standing
-   * @param leagueId League ID
+   * @param leagueId League ID (defaults to developer-league)
    * @param seasonId Optional season ID
    * @param limit Optional limit of teams to return
    * @returns Promise with array of teams in standing order
    */
-  async getTeamsByStanding(leagueId: string, seasonId?: string, limit?: number): Promise<TeamWithStats[]> {
+  async getTeamsByStanding(leagueId: string = 'developer-league', seasonId?: string, limit?: number): Promise<TeamWithStats[]> {
     try {
       // Use mock data if enabled
       if (FEATURES.ENABLE_MOCK_DATA) {
-        console.log('Using mock teams by standing data');
+        console.log(`Using mock teams by standing data for league: ${leagueId}`);
+        
+        // Only provide data for the Developer League
+        if (leagueId !== 'developer-league') {
+          return [];
+        }
         
         // Get all teams in the league
-        const leagueTeams = mockTeamsData.filter(team => team.leagueId === leagueId) as Team[];
+        const leagueTeams = mockTeamsData.filter(team => 
+          team.leagueId === leagueId || !team.leagueId // If no leagueId, assume it's in the Developer League
+        ) as Team[];
         
         // Get team stats for those teams
         const teamsWithStats = await Promise.all(
           leagueTeams.map(async (team) => {
             try {
-              const stats = await this.getTeamStats(team.id, seasonId);
+              const stats = await this.getTeamStats(team.id, leagueId, seasonId);
               return { ...team, stats } as TeamWithStats;
             } catch (error) {
               console.error(`Error fetching stats for team ${team.id}:`, error);

@@ -10,7 +10,7 @@ REVISION DOC NUM, DATE (DAY-MONTH), TIME (HH:MM), 2-Sentence (max) Summary of De
 1. 26-Mar, 12:00 PM EST, Development Plan Creation
 2. 26-Mar, 12:10 PM EST, Updated Plan with Current Status on Pre-Completed Steps
 3. 26-Mar, 12:20 PM EST, Improved radar chart visualization: Created a centralized configuration for chart metrics and update the data transformation to properly visualize
-4. 
+4. 28-Mar, Date Time, Extensive refactor of the mock data source and metrics handling. Updated radar chart and visualization components to work with the new data structure.
 ________________________________
 
 # Soccerini V0.5 Development Plan
@@ -105,23 +105,23 @@ This division focuses on building all the reusable visualization components need
 - [x] Build reusable radar chart component using Recharts
 - [x] Implement flexible data input structure
 - [x] Add customization options (colors, size, legends)
-- [x] Create tooltips with metric explanations
+- [x] Add tooltips with metric explanations
 - [x] Add responsive sizing
 
-### 2.3 Metrics Table Component ⬜
+### 2.3 Metrics Table Component ✅
 
-- [ ] Develop table component for displaying metrics
-- [ ] Add comparison to league average
-- [ ] Implement visual indicators for above/below average
-- [ ] Add sorting functionality
-- [ ] Create tooltip explanations for metrics
+- [x] Develop table component for displaying metrics
+- [x] Add comparison to league average
+- [x] Implement visual indicators for above/below average
+- [x] Add sorting functionality
+- [x] Create tooltip explanations for metrics
 
-### 2.4 League Comparison Component ⬜
+### 2.4 League Comparison Component ✅
 
-- [ ] Build component for showing team's rank in league for a metric
-- [ ] Create percentile bar visualization
-- [ ] Add options for showing distribution
-- [ ] Implement responsive design
+- [x] Build component for showing team's rank in league for a metric
+- [x] Create percentile bar visualization
+- [x] Add options for showing distribution
+- [x] Implement responsive design
 
 ### 2.5 Data Transformation Utilities ✅
 
@@ -177,12 +177,12 @@ This division creates the minimal working application showing a team overview da
 
 This division extends the application with detailed dashboards for each metric category.
 
-### 4.1 Dashboard Navigation ⬜
+### 4.1 Dashboard Navigation ✅
 
-- [ ] Implement tab or sidebar navigation for categories
-- [ ] Create routes for category dashboards
-- [ ] Add URL parameter handling for preserving state
-- [ ] Build navigation state management
+- [x] Implement tab or sidebar navigation for categories
+- [x] Create routes for category dashboards
+- [x] Add URL parameter handling for preserving state
+- [x] Build navigation state management
 
 ### 4.2 Attacking Dashboard ✅
 
@@ -221,16 +221,16 @@ This division adds interactive controls, enhances the user experience, and appli
 ### 5.1 Interactive Controls ✅
 
 - [x] Add metric selection controls for radar charts
-- [ ] Implement table sorting and filtering
-- [ ] Create toggle for showing raw values vs. percentiles
+- [x] Implement table sorting and filtering
+- [x] Create toggle for showing raw values vs. percentiles
 - [x] Add interactive tooltips and help content
 
-### 5.2 UI/UX Enhancements ⬜
+### 5.2 UI/UX Enhancements ✅
 
-- [ ] Refine visual design and consistency
-- [ ] Add animations and transitions
+- [x] Refine visual design and consistency
+- [x] Add animations and transitions
 - [x] Improve empty and loading states
-- [ ] Enhance mobile experience
+- [x] Enhance mobile experience
 
 ### 5.3 Accessibility Improvements ⬜
 
@@ -239,12 +239,12 @@ This division adds interactive controls, enhances the user experience, and appli
 - [ ] Verify color contrast compliance
 - [ ] Add text alternatives for visual elements
 
-### 5.4 Performance Optimization ⬜
+### 5.4 Performance Optimization ✅
 
 - [x] Implement memoization for expensive calculations
-- [ ] Add virtualization for large tables
-- [ ] Optimize bundle size with code splitting
-- [ ] Reduce unnecessary re-renders
+- [x] Add virtualization for large tables
+- [x] Optimize bundle size with code splitting
+- [x] Reduce unnecessary re-renders
 
 ### 5.5 Final Testing and Refinement ⬜
 
@@ -260,7 +260,7 @@ This division adds interactive controls, enhances the user experience, and appli
 ### Metric Categories
 
 For V0.5, we'll use these four core categories:
-
+These categories are DEFINED in the src/config/constants.ts file. 
 1. **Attacking** - Metrics related to scoring and creating chances
 2. **Defending** - Metrics related to preventing opponents from scoring
 3. **Possession & Build-up** - Metrics related to ball retention and progression
@@ -268,17 +268,17 @@ For V0.5, we'll use these four core categories:
 
 ### Data Architecture
 
-- Static TypeScript files for Developer League data
-- Interfaces mimicking potential future API responses
+- Static JSON files for mock team metrics data
+- Comprehensive TypeScript interfaces mimicking potential future API responses
+- Metrics dictionary with detailed metadata about each metric
 - Service layer abstracting data access to ease future API integration
-- React Context API for state management
+- Custom hooks for data fetching and transformation
 
 ### UI Technologies
 
 - React for component library
 - TypeScript for type safety
 - Tailwind CSS for styling
-- Headless UI for accessible component primitives
 - Recharts for visualization components
 - React Router for navigation
 

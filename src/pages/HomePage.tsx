@@ -1,35 +1,31 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllTeams } from '../services/mock-data';
-import { SUPPORTED_LEAGUES } from '../config/constants';
+import { SUPPORTED_LEAGUES } from '@/config/constants';
 
 /**
  * Home page component
- * Simple landing page with league and team selection dropdowns
+ * Landing page with league and team selection dropdowns
  */
 const HomePage = () => {
   const navigate = useNavigate();
-  const [selectedLeague, setSelectedLeague] = useState('');
+  const [selectedLeague, setSelectedLeague] = useState('developer-league');
   const [selectedTeam, setSelectedTeam] = useState('');
 
   // Get leagues from constants
   const leagues = SUPPORTED_LEAGUES;
 
-  // Get Premier League teams from mock data
+  // Get teams for the selected league
   const allTeams = getAllTeams();
 
-  // For version 0.5, we're focusing only on Premier League
-  const teamsByLeague = {
-    'premier-league': allTeams,
-    'champions-league': [],
-    'la-liga': [],
-    'bundesliga': [],
-    'serie-a': [],
-    'ligue-1': [],
+  // For version 0.5, we're focusing only on Developer League
+  const isLeagueAvailable = (leagueId: string) => {
+    const league = leagues.find(l => l.id === leagueId);
+    return league && !league.disabled;
   };
 
   // Get available teams based on selected league
-  const availableTeams = selectedLeague ? teamsByLeague[selectedLeague as keyof typeof teamsByLeague] || [] : [];
+  const availableTeams = isLeagueAvailable(selectedLeague) ? allTeams : [];
 
   // Handle league selection
   const handleLeagueChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -46,8 +42,18 @@ const HomePage = () => {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (selectedLeague && !isLeagueAvailable(selectedLeague)) {
+      // If league is not available, just navigate to the league page
+      // where the user will see an error message
+      navigate(`/league/${selectedLeague}`);
+      return;
+    }
+    
     if (selectedTeam) {
       navigate(`/team/${selectedTeam}`);
+    } else if (selectedLeague) {
+      navigate(`/league/${selectedLeague}`);
     }
   };
 
@@ -76,15 +82,15 @@ const HomePage = () => {
                 <option 
                   key={league.id} 
                   value={league.id}
-                  disabled={league.id !== 'premier-league'} // Only enable Premier League for v0.5
+                  disabled={league.disabled}
                 >
-                  {league.name} {league.id !== 'premier-league' ? '(Coming Soon)' : ''}
+                  {league.name} {league.disabled ? '(Coming Soon)' : ''}
                 </option>
               ))}
             </select>
-            {!selectedLeague && (
-              <p className="text-xs text-gray-500 mt-1">
-                Note: For version 0.5, only Premier League teams are available
+            {selectedLeague && !isLeagueAvailable(selectedLeague) && (
+              <p className="mt-1 text-xs text-amber-600">
+                This league is coming soon. Only Developer League data is available in the current version.
               </p>
             )}
           </div>
@@ -98,12 +104,13 @@ const HomePage = () => {
               id="team-select"
               value={selectedTeam}
               onChange={handleTeamChange}
-              disabled={!selectedLeague}
+              disabled={!selectedLeague || !isLeagueAvailable(selectedLeague)}
               className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:cursor-not-allowed disabled:bg-gray-100"
-              required
             >
               <option value="">
-                {selectedLeague ? 'Select a team' : 'Please select a league first'}
+                {!selectedLeague ? 'Please select a league first' : 
+                 !isLeagueAvailable(selectedLeague) ? 'League not available yet' : 
+                 'Select a team'}
               </option>
               {availableTeams.map((team) => (
                 <option key={team.id} value={team.id}>
@@ -117,13 +124,19 @@ const HomePage = () => {
           <div>
             <button
               type="submit"
-              disabled={!selectedTeam}
               className="w-full rounded-md bg-primary-600 py-2 px-4 text-center text-white shadow-sm transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-400"
             >
-              View Team Analysis
+              {selectedTeam ? 'View Team Analysis' : 
+               selectedLeague ? 'Browse Teams' : 'Select a League'}
             </button>
           </div>
         </form>
+      </div>
+      
+      {/* Version Info */}
+      <div className="mt-12 text-center text-sm text-gray-500">
+        <p>Version 0.5 - Developer Preview</p>
+        <p className="mt-1">Currently only supporting Developer League data.</p>
       </div>
     </div>
   );

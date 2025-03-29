@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { ChartContainer, RadarChart } from '@/components/charts';
-import { useTeamMetricsRadarData, METRIC_CATEGORIES } from '@/hooks/useChartData';
-import type { TeamMetrics } from '@/types';
-import { ChartConfig, RADAR_CHART_CONFIGS } from '@/config/chart-configs';
-import { MetricId, METRICS } from '@/config/metrics';
+import { ChartContainer } from '@/components/charts';
+import RadarChart from '@/components/charts/RadarChart';
+import useTeamMetricsRadarData, { METRIC_CATEGORIES_COLORS } from '@/hooks/useTeamMetricsRadarData';
+import { RADAR_CHART_CONFIGS, getChartConfig } from '@/config/chart-configs';
 
 interface PlayStyleVisualizationProps {
   /**
    * Team metrics data
    */
-  metrics: TeamMetrics | null;
+  metrics: any | null;
   
   /**
    * Loading state
@@ -38,8 +37,8 @@ interface PlayStyleVisualizationProps {
 }
 
 /**
- * Play style visualization component
- * Uses a radar chart to visualize team play style metrics
+ * PlayStyleVisualization component
+ * Displays a radar chart visualization of a team's play style
  */
 const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   metrics,
@@ -51,12 +50,12 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
 }) => {
   // State for selected configuration
   const [selectedConfigId, setSelectedConfigId] = useState<string>('team-overview');
-  const selectedConfig = RADAR_CHART_CONFIGS[selectedConfigId];
+  const selectedConfig = getChartConfig(selectedConfigId);
   
-  // Transform metrics data for the radar chart using the selected config
+  // Transform metrics data for the radar chart
   const radarData = useTeamMetricsRadarData(metrics, selectedConfig);
   
-  // Configure radar chart to use color categories
+  // Configure radar chart to use one team data series
   const dataKeys = [
     {
       key: 'teamName',
@@ -67,38 +66,20 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
   ];
   
   // Get current season from metrics data
-  const season = metrics?.seasonId?.split('-').slice(-2).join('-') || '2023-2024';
+  const season = '2023-2024'; // This would come from metrics.seasonId in a real implementation
   
-  // Custom tooltip formatter - show category at top, metric value with units and context
+  // Custom tooltip formatter to show metric details
   const tooltipFormatter = (value: number, name: string, props: any) => {
     // Get the data item for this tooltip
     const item = radarData.find(d => d.name === props.payload.name);
     if (!item) return [value.toFixed(1), name];
     
-    // Format the raw value
-    const metric = item.metricId ? METRICS[item.metricId as MetricId] : null;
-    let formattedValue = item.originalValue.toFixed(1);
+    // Format with original value and context
+    const formattedValue = item.originalValue.toFixed(1);
+    const context = item.leagueContext || '';
     
-    // Format with appropriate units
-    let unitLabel = '';
-    if (metric?.unit === 'percentage') {
-      formattedValue += '%';
-      unitLabel = '(Percentage)';
-    } else if (metric?.unit === 'seconds') {
-      formattedValue += ' sec';
-      unitLabel = '(Seconds)';
-    } else if (metric?.unit === 'count') {
-      unitLabel = '(Per 90)';
-    } else if (metric?.unit === 'index') {
-      unitLabel = '(Index 0-100)';
-    }
-    
-    // Get league context description
-    const leagueContext = item.leagueContext || '';
-    
-    // Return value with units and percentile context, and use category as the name
-    return [`${formattedValue} ${unitLabel} (${item.percentile?.toFixed(0) || '--'}% - ${leagueContext})`, 
-            item.category.charAt(0).toUpperCase() + item.category.slice(1)];
+    // Return the formatted tooltip content
+    return [`${formattedValue} (${context})`, item.category.charAt(0).toUpperCase() + item.category.slice(1)];
   };
 
   // Handle configuration change
@@ -108,25 +89,25 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
 
   return (
     <div className={`bg-white rounded-lg border border-gray-200 shadow-sm ${className}`}>
-      {/* Title area */}
-      <div className="py-4 px-6 border-b border-gray-200">
+      {/* Team header */}
+      <div className="border-b border-gray-200 px-6 py-4">
         <h2 className="text-xl font-semibold text-gray-900">{teamName}</h2>
-        <p className="text-sm text-gray-600">Premier League · {season} · Matches played: {metrics?.gamesPlayed || 'N/A'}</p>
+        <p className="text-sm text-gray-600">Developer League · {season}</p>
       </div>
       
       <ChartContainer
         title="Play Style Analysis"
-        description="Percentile rankings compared to other teams in the league"
+        description="Metrics normalized against league averages"
         loading={loading}
         error={error}
         onRefresh={onRefresh}
         minHeight={700}
         bordered={false}
-        infoTooltip="This radar chart shows how the team compares to others in the league across key metrics. Higher values (further from center) indicate better performance relative to other teams."
+        infoTooltip="This radar chart shows how the team compares to league averages across key metrics. Values further from the center indicate better performance relative to other teams."
       >
         {/* Configuration selector */}
         <div className="mb-6">
-          <label htmlFor="config-select" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="config-select" className="mb-2 block text-sm font-medium text-gray-700">
             Visualization Focus
           </label>
           <select
@@ -145,38 +126,41 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
         
         {radarData.length > 0 ? (
           <>
+            {/* Brief explanation of the chart */}
             <div className="mb-4 text-sm text-gray-600">
-              <p>This chart displays raw metric values with percentile rankings compared to other teams. The radar is segmented into four playing style categories, each color-coded for easy identification.</p>
+              <p>This chart shows how {teamName} compares to other teams in the league across key metrics, normalized on a 0-100 scale.</p>
             </div>
+            
+            {/* Radar chart */}
             <RadarChart
               data={radarData}
               dataKeys={dataKeys}
               radiusAxisDomain={[0, 100]}
               tooltipFormatter={tooltipFormatter}
-              height={600}
+              height={500}
               showLegend={false}
               radiusAxisTickFormatter={(value) => `${value}%`}
               className="mx-auto"
-              colorByPoint={true} // Use this to color individual points
-              dotSize={6} // Make dots more visible
-              gridCount={5} // 5 circles for better readability
-              showLabels={true} // Show axis labels
-              labelClass="text-sm font-medium" // Style for labels
-              connectNulls={false} // Don't connect null values
-              colorMap={METRIC_CATEGORIES} // Map for category colors
+              colorByPoint={true}
+              dotSize={6}
+              gridCount={5}
+              showLabels={true}
+              labelClass="text-sm font-medium"
+              connectNulls={false}
+              colorMap={METRIC_CATEGORIES_COLORS}
             />
             
             {/* Category legend */}
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
-              {Object.entries(METRIC_CATEGORIES).map(([category, info]) => (
-                <div key={category} className="flex flex-col items-center border border-gray-200 rounded-lg p-3">
-                  <div className="flex items-center justify-center mb-2 w-8 h-8 rounded-full" style={{ backgroundColor: info.color }}>
-                    <span className="text-white font-bold text-sm">{category.charAt(0).toUpperCase()}</span>
+            <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {Object.entries(METRIC_CATEGORIES_COLORS).map(([category, info]) => (
+                <div key={category} className="flex flex-col items-center rounded-lg border border-gray-200 p-3">
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full" style={{ backgroundColor: info.color }}>
+                    <span className="text-sm font-bold text-white">{category.charAt(0).toUpperCase()}</span>
                   </div>
                   <h4 className="text-sm font-medium text-gray-700">
-                    {category.charAt(0).toUpperCase() + category.slice(1)} Style
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
                   </h4>
-                  <p className="text-xs text-gray-500 text-center mt-1">
+                  <p className="mt-1 text-center text-xs text-gray-500">
                     {getCategoryDescription(category)}
                   </p>
                 </div>
@@ -185,8 +169,8 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
             
             {/* Percentile legend */}
             <div className="mt-6 border-t border-gray-100 pt-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Percentile Rankings</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 text-xs">
+              <h4 className="mb-2 text-sm font-medium text-gray-700">Percentile Rankings</h4>
+              <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2 lg:grid-cols-5">
                 <div className="flex items-center">
                   <span className="mr-2 inline-block h-3 w-8 bg-gradient-to-r from-green-500 to-green-600"></span>
                   <span>80-100: Elite (Top 20%)</span>
@@ -209,15 +193,10 @@ const PlayStyleVisualization: React.FC<PlayStyleVisualizationProps> = ({
                 </div>
               </div>
             </div>
-            
-            {/* Tooltip Instructions */}
-            <div className="mt-4 text-xs text-gray-500 italic">
-              <p>Hover over any point to see the actual metric value and its percentile ranking in the league.</p>
-            </div>
           </>
         ) : (
           <div className="flex h-full items-center justify-center">
-            <p className="text-gray-500">No data available to display</p>
+            <p className="text-gray-500">No data available for visualization</p>
           </div>
         )}
       </ChartContainer>
@@ -234,7 +213,7 @@ function getCategoryDescription(category: string): string {
       return 'How the team creates and converts scoring opportunities';
     case 'possession':
       return 'How the team controls and progresses the ball';
-    case 'defensive':
+    case 'defending':
       return 'How the team prevents opponents from scoring';
     case 'tempo':
       return 'How the team transitions between phases of play';
